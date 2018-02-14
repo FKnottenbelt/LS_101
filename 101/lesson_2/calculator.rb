@@ -23,7 +23,7 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num.to_i != 0
+  Integer(num) rescue false
 end
 
 def operation_to_message(op)
