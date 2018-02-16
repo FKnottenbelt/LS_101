@@ -1,20 +1,39 @@
 # calculator_messages.yml
-
-welcome: "Welcome to Calculator! Enter your name:"
-valid_name: "Make sure to enter a valid name."
-hello: "Hello %{name}"
-first_number: "What is the first number?"
-second_number: "What is the second number?"
-invalid_number: "Hmm...that doesn't look like a valid number"
-operator: "
-    what operation would you like to perform?\n
-      1) add\n
-      2) subtract\n
-      3) multiply\n
-      4) divide\n
-   "
-invalid_operator: "Please choose 1, 2, 3 or 4"
-performing_operation: "%{performing_method} the two numbers..."
-result: "The result is %{result}"
-keep_going?: "Do you want to perform another calculation? Y to calculate again"
-exit: "Thank you for using the calculator. Good Bye!"
+eng:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to enter a valid name."
+  hello: "Hello %{name}"
+  first_number: "What is the first number?"
+  second_number: "What is the second number?"
+  invalid_number: "Hmm...that doesn't look like a valid number"
+  operator: "
+      what operation would you like to perform?\n
+        1) add\n
+        2) subtract\n
+        3) multiply\n
+        4) divide\n
+     "
+  invalid_operator: "Please choose 1, 2, 3 or 4"
+  performing_operation: "%{performing_method} the two numbers..."
+  result: "The result is %{result}"
+  keep_going?: "Do you want to perform another calculation? Y to calculate again"
+  exit: "Thank you for using the calculator. Good Bye!"
+dutch:
+  welcome: "Welkom bij de rekenmachine! Geef je naam:"
+  valid_name: "Geef a.u.b een geldige naam."
+  hello: "Hallo %{name}"
+  first_number: "Wat is je eerste nummer?"
+  second_number: "Wat is je tweede nummer?"
+  invalid_number: "Hmm...dat ziet er niet uit als een geldig nummer"
+  operator: "
+      wat wil je doen?\n
+        1) optellen\n
+        2) aftrekken\n
+        3) vermenigvuldigen\n
+        4) delen\n
+     "
+  invalid_operator: "Kies uit 1, 2, 3 or 4"
+  performing_operation: "Bezig met het %{performing_method}van de 2 nummers..."
+  result: "Het resultaat is %{result}"
+  keep_going?: "Wilt u nog een berekening doen? Y om door te gaan"
+  exit: "Dank u voor het gebruik van de rekenmachine. Goedendag!"

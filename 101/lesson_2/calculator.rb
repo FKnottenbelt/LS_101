@@ -19,9 +19,22 @@
 # output the result
 
 require 'yaml'
+LANGUAGE = 'dutch' # set to 'eng' for English, 'dutch' for Dutch
 MESSAGES = YAML.load_file('calculator_messages.yml')
 
-def prompt(message)
+# accessing the now nested hash in the .yml file
+# chosing first the language, then the message
+def messages(key, lang='eng')
+  MESSAGES[lang][key]
+end
+
+def prompt(key)
+  message = messages(key, LANGUAGE)
+  Kernel.puts("=> #{message}")
+end
+
+# since I can't get it to work with the more complicated prompts
+def simple_prompt(message)
   Kernel.puts("=> #{message}")
 end
 
@@ -43,46 +56,53 @@ def operation_to_message(op)
   action
 end
 
-prompt(MESSAGES['welcome'])
+prompt('welcome')
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?
-    prompt(MESSAGES['valid_name'])
+    prompt('valid_name')
   else
     break
   end
 end
 
-prompt(MESSAGES['hello'] % { name: name })
+# getting a message with a Ruby variable from the .yml file, means putting a
+# placeholder in the .yml file. In this case that is %{name} like so:
+# hello: "Hello %{name}". When calling the message with the hash key 'hello',
+# we then tell ruby to how to substitute the place holder. So here we say that
+# the placehoder `name:` should be replaced with our ruby variable `name`.
+simple_prompt(MESSAGES[LANGUAGE]['hello'] % { name: name })
 
 loop do # main
   number1 = ''
   loop do
-    prompt(MESSAGES['first_number'])
+    prompt('first_number')
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt(MESSAGES['invalid_nubmer'])
+      prompt('invalid_nubmer')
     end
   end
 
   number2 = ''
   loop do
-    prompt(MESSAGES['second_number'])
+    prompt('second_number')
     number2 = Kernel.gets().chomp()
     if valid_number?(number2)
       break
     else
-      prompt(MESSAGES['invalid_number'])
+      prompt('invalid_number')
     end
   end
 
-  prompt(MESSAGES['operator'])
+  # the <<-MSG trick won't work with .yml so we replace that in the .yml file
+  # with newline characters (\n)
+  prompt('operator')
   operator = ''
   loop do
     operator = Kernel.gets().chomp()
@@ -90,11 +110,11 @@ loop do # main
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt(MESSAGES['invalid_operator'])
+      prompt('invalid_operator')
     end
   end
 
-  prompt(MESSAGES['performing_operation'] %
+  simple_prompt(MESSAGES[LANGUAGE]['performing_operation'] %
   { performing_method: operation_to_message(operator) })
 
   result =  case operator
@@ -108,10 +128,10 @@ loop do # main
               number1.to_f() / number2.to_f()
             end
 
-  prompt(MESSAGES['result'] % { result: result })
-  prompt(MESSAGES['keep_going?'])
+  simple_prompt(MESSAGES[LANGUAGE]['result'] % { result: result })
+  prompt('keep_going?')
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
 
-prompt(MESSAGES['exit'])
+prompt('exit')
