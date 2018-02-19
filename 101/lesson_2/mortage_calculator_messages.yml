@@ -2,7 +2,7 @@
 eng:
   welcome: "Welcome to the mortage caculator!"
   loan: "How much do you want to borrow?"
-  invalid_loan: "Please enter a valid loan amount greater than 0"
+  invalid_loan: "Please enter a loan amount as a number greater than 0"
   interest: "How much interest are you willing to pay?"
   invalid_interest: "Please enter interest as a percentage greater then 0.\n
                     (Example: 5 for 5% or 2.5 for 2.5%)"
@@ -10,7 +10,7 @@ eng:
   invalid_loan_duration: "Please enter loan duration as a number greater then 0"
   result_payment: "Your monthly payment will be %{currency}%{monthly_payment}"
   result_month: "for the duration of %{loan_duration_months} months."
-  keep_going?: "Do you want to calculate again? y for yes"
+  keep_going?: "Do you want to calculate again? y for yes, any other key for no"
   exit: "Thank you for using the mortage calculator. Goodbye!"
 dutch:
   welcome: "Welkom bij de hypoteek caculator!"
@@ -23,5 +23,6 @@ dutch:
   invalid_loan_duration: "Geef a.u.b een looptijd van groter dan 0"
   result_payment: "Uw maandelijkse betaling is %{currency}%{monthly_payment}"
   result_month: "gedurende %{loan_duration_months} maanden."
-  keep_going?: "Wilt u nog een berekening doen? Type y voor ja"
+  keep_going?: "Wilt u nog een berekening doen?\n
+                (Type y voor ja en een andere toets voor nee)"
   exit: "Dank u voor het gebruik van de hypoteek caluculator. Tot ziens!"

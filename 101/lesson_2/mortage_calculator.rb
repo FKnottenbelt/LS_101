@@ -1,5 +1,5 @@
 # mortage_calculator.rb
-# ruby 2.4.1p111 
+# ruby 2.4.1p111
 
 # i: - loan amount in dollars, so float - p
 #   - Annual Percentage Rate (APR) float
@@ -24,7 +24,7 @@
 #   - if not, say goodbye
 
 require 'yaml'
-LANGUAGE = 'dutch' # set to 'eng' for English, 'dutch' for Dutch
+LANGUAGE = 'eng' # set to 'eng' for English, 'dutch' for Dutch
 MESSAGES = YAML.load_file('mortage_calculator_messages.yml')
 CURRENCY = (LANGUAGE == 'eng' ? '$' : '€')
 
@@ -68,11 +68,9 @@ loop do # main
   loan_duration_year = get_input('loan_duration', 'invalid_loan_duration')
 
   interest_per_year /= 100
-  interest_per_month = interest_per_year / 12 # j
-  loan_duration_months = loan_duration_year * 12 # n
+  interest_per_month = interest_per_year / 12
+  loan_duration_months = loan_duration_year * 12
 
-  # caluculate monthly payment as
-  # m = p * (j / (1 - (1 + j)**(-n)))
   monthly_payment = loan * (interest_per_month /
     (1 - (1 + interest_per_month)**-loan_duration_months))
 
@@ -84,6 +82,6 @@ loop do # main
   answer = gets.chomp.downcase
   break unless %w(y yeah yes).include?(answer)
   system('clear') || system('cls')
-end # main
+end
 
 prompt 'exit'
