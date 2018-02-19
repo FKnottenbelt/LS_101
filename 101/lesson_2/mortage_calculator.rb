@@ -1,8 +1,9 @@
 # mortage_calculator.rb
+# ruby 2.4.1p111 
 
 # i: - loan amount in dollars, so float - p
 #   - Annual Percentage Rate (APR) float
-#   - loan duration , in years (integer)
+#   - loan duration , in years (float)
 # o: - monthly interest rate (float)
 #   - loan duration in months (float)
 # r: - m = p * (j / (1 - (1 + j)**(-n)))
@@ -10,7 +11,7 @@
 #     p = loan amount
 #     j = monthly interest rate (MPR)
 #     n = loan duration in months
-# d: numbers
+# d: numbers, mostly floats
 # example: mortage_calculator(100,1,1) => $8.38 for 12 months
 # f: - welcome
 #   - ask for input
@@ -23,8 +24,9 @@
 #   - if not, say goodbye
 
 require 'yaml'
-LANGUAGE = 'eng' # set to 'eng' for English, 'dutch' for Dutch
+LANGUAGE = 'dutch' # set to 'eng' for English, 'dutch' for Dutch
 MESSAGES = YAML.load_file('mortage_calculator_messages.yml')
+CURRENCY = (LANGUAGE == 'eng' ? '$' : '€')
 
 def messages(key, lang = 'eng', variable = '')
   message = if variable == ''
@@ -74,7 +76,8 @@ loop do # main
   monthly_payment = loan * (interest_per_month /
     (1 - (1 + interest_per_month)**-loan_duration_months))
 
-  prompt 'result_payment', { monthly_payment: format('%.2f', monthly_payment) }
+  prompt 'result_payment', { monthly_payment: format('%.2f', monthly_payment),
+                             currency: CURRENCY }
   prompt 'result_month', { loan_duration_months: loan_duration_months.round(0) }
 
   prompt 'keep_going?'
