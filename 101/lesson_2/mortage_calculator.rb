@@ -39,36 +39,81 @@ rescue ArgumentError
   false
 end
 
-def get_input(input_prompt, message_prompt)
+def valid_interest?(number)
+  if valid_float?(number)
+    number.to_f >= 0 ? true : false
+  end
+end
+
+def valid_loan?(number)
+  if valid_float?(number)
+    number.to_f > 0 ? true : false
+  end
+end
+
+def valid_loan_duration?(number)
+  if valid_float?(number)
+    number.to_f > 0 ? true : false
+  end
+end
+
+def get_input_loan(input_prompt, message_prompt)
   number = 0
   loop do
     prompt input_prompt
-    number = gets
-    valid_float?(number) ? number = number.to_f : number
-    break if valid_float?(number) && number > 0
+    number = gets.chomp
+    break if valid_loan?(number)
     prompt message_prompt
   end
-  number
+  number.to_f
+end
+
+def get_input_interest(input_prompt, message_prompt)
+  number = 0
+  loop do
+    prompt input_prompt
+    number = gets.chomp
+    break if valid_interest?(number)
+    prompt message_prompt
+  end
+  number.to_f
+end
+
+def get_input_loan_duration(input_prompt, message_prompt)
+  number = 0
+  loop do
+    prompt input_prompt
+    number = gets.chomp
+    break if valid_loan_duration?(number)
+    prompt message_prompt
+  end
+  number.to_f
 end
 
 prompt 'welcome'
 
 loop do # main
-  loan = get_input('loan', 'invalid_loan')
-  interest_per_year = get_input('interest', 'invalid_interest')
-  loan_duration_year = get_input('loan_duration', 'invalid_loan_duration')
+  loan = get_input_loan('loan', 'invalid_loan')
+  interest_per_year = get_input_interest('interest', 'invalid_interest')
+  loan_duration_year = get_input_loan_duration('loan_duration',
+                                               'invalid_loan_duration')
 
   interest_per_year /= 100
   interest_per_month = interest_per_year / 12
   loan_duration_months = loan_duration_year * 12
 
-  monthly_payment = loan * (interest_per_month /
+  if interest_per_year == 0
+    monthly_payment = loan / loan_duration_months
+  else
+    monthly_payment = loan * (interest_per_month /
     (1 - (1 + interest_per_month)**-loan_duration_months))
+  end
 
   prompt 'result_payment', { monthly_payment: format('%.2f', monthly_payment),
                              currency: CURRENCY }
   prompt 'result_month', { loan_duration_months:
-                           format('%g', loan_duration_months.round(1)) }
+                     format('%g', loan_duration_months.round(1)) }
+
   answer = ''
   loop do
     prompt 'keep_going?'
