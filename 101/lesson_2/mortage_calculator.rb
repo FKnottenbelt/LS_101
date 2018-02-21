@@ -28,23 +28,14 @@ LANGUAGE = 'eng' # set to 'eng' for English, 'dutch' for Dutch
 MESSAGES = YAML.load_file('mortage_calculator_messages.yml')
 CURRENCY = (LANGUAGE == 'eng' ? '$' : '€')
 
-def messages(key, lang = 'eng', variable = '')
-  message = if variable == ''
-              MESSAGES[lang][key]
-            else
-              MESSAGES[lang][key] % variable
-            end
-  message
-end
-
-def prompt(key, variable = '')
-  message = messages(key, LANGUAGE, variable)
+def prompt(key, parameter = '')
+  message = MESSAGES[LANGUAGE][key] % parameter
   puts("=> #{message}")
 end
 
 def valid_float?(number)
   true if Float(number)
-rescue
+rescue ArgumentError
   false
 end
 
@@ -76,10 +67,15 @@ loop do # main
 
   prompt 'result_payment', { monthly_payment: format('%.2f', monthly_payment),
                              currency: CURRENCY }
-  prompt 'result_month', { loan_duration_months: loan_duration_months.round(0) }
-
-  prompt 'keep_going?'
-  answer = gets.chomp.downcase
+  prompt 'result_month', { loan_duration_months:
+                           format('%g', loan_duration_months.round(1)) }
+  answer = ''
+  loop do
+    prompt 'keep_going?'
+    answer = gets.chomp.downcase
+    break if %w(y yeah yes n no nope).include?(answer)
+    prompt 'invalid_keep_going'
+  end
   break unless %w(y yeah yes).include?(answer)
   system('clear') || system('cls')
 end

@@ -5,12 +5,13 @@ eng:
   invalid_loan: "Please enter a loan amount as a number greater than 0"
   interest: "How much interest are you willing to pay?"
   invalid_interest: "Please enter interest as a percentage greater then 0.\n
-                    (Example: 5 for 5% or 2.5 for 2.5%)"
+                    (Example: 5 for 5 percent or 2.5 for 2.5 percent)"
   loan_duration: "How many years do you want to loan?"
   invalid_loan_duration: "Please enter loan duration as a number greater then 0"
   result_payment: "Your monthly payment will be %{currency}%{monthly_payment}"
   result_month: "for the duration of %{loan_duration_months} months."
-  keep_going?: "Do you want to calculate again? y for yes, any other key for no"
+  keep_going?: "Do you want to calculate again? y for yes, n for no"
+  invalid_keep_going: "Please type y to calculate again, n to stop"
   exit: "Thank you for using the mortage calculator. Goodbye!"
 dutch:
   welcome: "Welkom bij de hypoteek caculator!"
@@ -18,11 +19,13 @@ dutch:
   invalid_loan: "Geef a.u.b een te lenen bedrag groter dan 0"
   interest: "Hoeveel rente bent u bereid te betalen?"
   invalid_interest: "Geef a.u.b een rente percentage groter dan 0.\n
-                    (bv: 5 voor 5% of 2.5 voor 2.5%)"
+                    (bv: 5 voor 5 procent of 2.5 voor 2.5 procent)"
   loan_duration: "Wat is de gewenste looptijd van de lening in jaren?"
   invalid_loan_duration: "Geef a.u.b een looptijd van groter dan 0"
   result_payment: "Uw maandelijkse betaling is %{currency}%{monthly_payment}"
   result_month: "gedurende %{loan_duration_months} maanden."
   keep_going?: "Wilt u nog een berekening doen?\n
-                (Type y voor ja en een andere toets voor nee)"
+                (Type y voor ja, n voor nee)"
+  invalid_keep_going: "Type a.u.b een y om nog een bereking te maken,
+                type n om te stopen"
   exit: "Dank u voor het gebruik van de hypoteek caluculator. Tot ziens!"
