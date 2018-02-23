@@ -26,9 +26,15 @@
 require 'yaml'
 LANGUAGE = 'eng' # set to 'eng' for English, 'dutch' for Dutch
 MESSAGES = YAML.load_file('mortage_calculator_messages.yml')
+NO_PARAMETER = ''
 CURRENCY = (LANGUAGE == 'eng' ? '$' : '€')
 
-def prompt(key, parameter = '')
+def prompt(key, parameter)
+  # If the messages contains a parameter in %{placeholder} form, then the
+  # parameter passed into this messages should contain a hash with the place-
+  # holder name as key and the parmeter as value. Have as many key-value
+  # pairs as you have parameters. Example:
+  # message: "Hello %{name}!"  parameter { name: first_name }
   message = MESSAGES[LANGUAGE][key] % parameter
   puts("=> #{message}")
 end
@@ -60,10 +66,10 @@ end
 def get_input_loan(input_prompt, message_prompt)
   number = 0
   loop do
-    prompt input_prompt
+    prompt input_prompt, NO_PARAMETER
     number = gets.chomp
     break if valid_loan?(number)
-    prompt message_prompt
+    prompt message_prompt, NO_PARAMETER
   end
   number.to_f
 end
@@ -71,10 +77,10 @@ end
 def get_input_interest(input_prompt, message_prompt)
   number = 0
   loop do
-    prompt input_prompt
+    prompt input_prompt, NO_PARAMETER
     number = gets.chomp
     break if valid_interest?(number)
-    prompt message_prompt
+    prompt message_prompt, NO_PARAMETER
   end
   number.to_f
 end
@@ -82,15 +88,15 @@ end
 def get_input_loan_duration(input_prompt, message_prompt)
   number = 0
   loop do
-    prompt input_prompt
+    prompt input_prompt, NO_PARAMETER
     number = gets.chomp
     break if valid_loan_duration?(number)
-    prompt message_prompt
+    prompt message_prompt, NO_PARAMETER
   end
   number.to_f
 end
 
-prompt 'welcome'
+prompt 'welcome', NO_PARAMETER
 
 loop do # main
   loan = get_input_loan('loan', 'invalid_loan')
@@ -116,13 +122,13 @@ loop do # main
 
   answer = ''
   loop do
-    prompt 'keep_going?'
+    prompt 'keep_going?', NO_PARAMETER
     answer = gets.chomp.downcase
     break if %w(y yeah yes n no nope).include?(answer)
-    prompt 'invalid_keep_going'
+    prompt 'invalid_keep_going', NO_PARAMETER
   end
   break unless %w(y yeah yes).include?(answer)
   system('clear') || system('cls')
 end
 
-prompt 'exit'
+prompt 'exit', NO_PARAMETER
