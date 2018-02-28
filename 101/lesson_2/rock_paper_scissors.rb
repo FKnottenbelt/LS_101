@@ -2,16 +2,18 @@
 
 # walk through
 
-VALID_CHOICES = %w(rock paper scissors)
+VALID_CHOICES = %w(rock paper scissors spock lizard)
 
 def prompt(message)
   puts("=> #{message}")
 end
 
 def win?(first, second)
-  winner = { rock: ['scissors'],
-             paper: ['rock'],
-             scissors: ['paper'] }
+  winner = { rock: ['scissors', 'lizard'],
+             paper: ['rock', 'spock'],
+             scissors: ['paper', 'lizard'],
+             lizard: ['spock', 'paper'],
+             spock: ['scissors', 'rock'] }
   winner[first.to_sym].include?(second)
 end
 
