@@ -9,9 +9,10 @@ def prompt(message)
 end
 
 def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
+  winner = { rock: ['scissors'],
+             paper: ['rock'],
+             scissors: ['paper'] }
+  winner[first.to_sym].include?(second)
 end
 
 def display_output(player, computer)
