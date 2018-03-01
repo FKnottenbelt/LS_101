@@ -22,12 +22,15 @@ end
 
 def keep_going?
   answer = ''
+
   loop do
     prompt 'Do you want to play again?'
     answer = gets.chomp.downcase
+
     break if %w(y yeah yes yep n no nope).include?(answer)
     prompt 'Please answer y (yes) or n (no)'
   end
+
   %w(y yeah yes yep).include?(answer)
 end
 
@@ -64,7 +67,7 @@ def display_output(player, computer)
 end
 
 def display_grand_winner(score)
-  winner = score[:player] == 5 ? 'YOU' : 'Computer'
+  winner = score[:player] == WINS_TO_COMPLETE_MATCH ? 'YOU' : 'Computer'
   prompt "And the grand winner is.....#{winner}!!"
 end
 
