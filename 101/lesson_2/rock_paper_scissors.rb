@@ -2,9 +2,33 @@
 
 VALID_CHOICES = %w(rock paper scissors Spock lizard)
 VALID_ABREVIATION = %w(r p s S l)
+LINE_WIDTH = 80
+WINS_TO_COMPLETE_MATCH = 5
 
 def prompt(message)
   puts("=> #{message}")
+end
+
+def clear_screen
+  system('clear') || system('cls')
+end
+
+def display_welcome
+  clear_screen
+  puts
+  prompt "Let's play a game!".center(LINE_WIDTH)
+  prompt "First one to win 5 times in a row wins the match!".center(LINE_WIDTH)
+end
+
+def keep_going?
+  answer = ''
+  loop do
+    prompt 'Do you want to play again?'
+    answer = gets.chomp.downcase
+    break if %w(y yeah yes yep n no nope).include?(answer)
+    prompt 'Please answer y (yes) or n (no)'
+  end
+  %w(y yeah yes yep).include?(answer)
 end
 
 def win?(first, second)
@@ -26,31 +50,36 @@ def autocomplete_choice(choice)
 end
 
 def display_output(player, computer)
-  if win?(player, computer)
-    prompt('You won!')
-  elsif win?(computer, player)
-    prompt('Computer won!')
-  else
-    prompt("It's a tie!")
-  end
+  result = if win?(player, computer)
+             'You won!'
+           elsif win?(computer, player)
+             'Computer won!'
+           else
+             "It's a tie!"
+           end
+  prompt <<-MSG
+    You chose: #{player}. The computer chose: #{computer}.
+            --------- #{result} ---------
+  MSG
 end
 
 def display_grand_winner(score)
-  score[:player] == 5 ? winner = 'YOU' : winner = 'Computer'
+  winner = score[:player] == 5 ? 'YOU' : 'Computer'
   prompt "And the grand winner is.....#{winner}!!"
 end
 
 def display_score(score)
-  prompt "The score is: You:#{score[:player]}, Computer: #{score[:computer]}"
+  prompt <<-MSG
+    The score is: You:#{score[:player]}, Computer: #{score[:computer]}
+
+  MSG
 end
 
 def keep_score(player, computer, score)
   if win?(player, computer)
     score[:player] += 1
   elsif win?(computer, player)
-     score[:computer] += 1
-  else
-    # it's a tie. We don't want to count those
+    score[:computer] += 1
   end
 end
 
@@ -60,16 +89,18 @@ def reset_score(score)
 end
 
 score = { player: 0,
-          computer: 0,
-          tie: 0 }
+          computer: 0 }
 
+display_welcome
 loop do # main
   choice = ''
+
   loop do
-    prompt "Choose one: #{VALID_CHOICES.join(', ')}. You may type the first
-      letter only."
+    prompt "Choose one: #{VALID_CHOICES.join(', ')}.
+    (You may type the first letter only)."
     choice = gets.chomp
 
+    choice = %w(R P L).include?(choice) ? choice.downcase : choice
     if VALID_ABREVIATION.include?(choice)
       choice = autocomplete_choice(choice)
     end
@@ -82,21 +113,18 @@ loop do # main
   end
 
   computer_choice = VALID_CHOICES.sample
-
-  puts "You chose: #{choice}. The computer chose: #{computer_choice}."
   display_output(choice, computer_choice)
+
   keep_score(choice, computer_choice, score)
   display_score(score)
 
-  if score.has_value?(5)
-     display_grand_winner(score)
-     reset_score(score)
+  if score.value?(WINS_TO_COMPLETE_MATCH)
+    display_grand_winner(score)
+    reset_score(score)
 
-     prompt("Do you want to play again?")
-     answer = gets.chomp
-     break unless answer.downcase.start_with?('y')
+    break unless keep_going?
+    clear_screen
   end
 end
 
 prompt("Thank you for playing, good bye!")
-
