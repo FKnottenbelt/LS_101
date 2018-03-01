@@ -1,4 +1,5 @@
 # rock_paper_scissors.rb
+# ruby 2.4.1p111 (2017-03-22 revision 58053)
 
 VALID_CHOICES = %w(rock paper scissors Spock lizard)
 VALID_ABREVIATION = %w(r p s S l)
