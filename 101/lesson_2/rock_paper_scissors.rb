@@ -53,6 +53,25 @@ def autocomplete_choice(choice)
   full_text[choice.to_sym]
 end
 
+def ask_for_player_choice
+  choice = ''
+  loop do
+    prompt "Choose one: #{VALID_CHOICES.join(', ')}.
+    (You may type the whole word, or the first letter only.
+     NB: 'S' for Spock, 's' for scissors)"
+    choice = gets.chomp
+
+    choice = %w(R P L).include?(choice) ? choice.downcase : choice
+    if VALID_ABREVIATION.include?(choice)
+      choice = autocomplete_choice(choice)
+    end
+
+    break if VALID_CHOICES.include?(choice)
+    prompt('That is not a valid choice')
+  end
+  choice
+end
+
 def display_output(player, computer)
   result = if win?(player, computer)
              'You won!'
@@ -96,26 +115,9 @@ score = { player: 0,
           computer: 0 }
 
 display_welcome
+
 loop do # main
-  choice = ''
-
-  loop do
-    prompt "Choose one: #{VALID_CHOICES.join(', ')}.
-    (You may type the first letter only)."
-    choice = gets.chomp
-
-    choice = %w(R P L).include?(choice) ? choice.downcase : choice
-    if VALID_ABREVIATION.include?(choice)
-      choice = autocomplete_choice(choice)
-    end
-
-    if VALID_CHOICES.include?(choice)
-      break
-    else
-      prompt('That is not a valid choice')
-    end
-  end
-
+  choice = ask_for_player_choice
   computer_choice = VALID_CHOICES.sample
   display_output(choice, computer_choice)
 
