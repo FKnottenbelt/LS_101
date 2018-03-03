@@ -1,0 +1,201 @@
+#  easy1.txt
+
+# QUESTION 1
+Q: What would you expect the code below to print out?
+
+numbers = [1, 2, 2, 3]
+numbers.uniq
+
+puts numbers
+
+# I would expect:
+=> 1
+=> 2
+=> 2
+=> 3
+
+A: The orignal numbers array is printed. And puts does a .to_s
+
+#########################################################################################
+
+# QUESTION 2
+Q: Describe the difference between ! and ? in Ruby. And explain what would happen in the following scenarios:
+1. what is != and where should you use it?
+    A: check for not equal
+2. put ! before something, like !user_name
+    A: ! turns whatever it's in front of the the opposite of its boolean equivalent
+         so in this case it will return false
+3. put ! after something, like words.uniq!
+    A: Is part of the method name, so depends on the method implementation. Often though, it signals that the method is a mutating method.
+4. put ? before something
+    A: ? : used together in ternary operations. Or in pry it is shorhand voor show doc
+5. put ? after something
+    A: Is part of the method name, so depends on the method implementation. If its after a method definition, the method probably returns a boolean
+6. put !! before something, like !!user_name
+    A: !! turns any object into its boolean equivalent. So in this case it will return true.
+
+#########################################################################################
+
+# QUESTION 3
+
+Q: Replace the word "important" with "urgent" in this string:
+advice = "Few things in life are as important as house training your pet dinosaur."
+A: advice.gsub!('important', 'urgent') or advice.gsub!(/important/, 'urgent') NB in the last version you have to leave out the '' around important: it's either '' or //
+
+#########################################################################################
+
+# QUESTION 4
+
+The Ruby Array class has several methods for removing items from the array. 
+Two of them have very similar names. Let's see how they differ:
+
+numbers = [1, 2, 3, 4, 5]
+What do the following method calls do (assume we reset numbers to the original array between method calls)?
+
+numbers.delete_at(1)
+A: #delete_at() will delete the value at the INDEX passed as an argument
+
+numbers.delete(1)
+A: #delete() will delete the VALUE passed as an argument
+
+#########################################################################################
+
+# QUESTION 5
+
+# Programmatically determine if 42 lies between 10 and 100.
+# hint: Use Ruby's range object in your solution.
+  
+42.between?(10,100)
+(10..100).include?(42)
+(10..100).cover?(42)
+
+NB there are differences between include? and cover?:
+
+p 42.between?(10,100)          # => true
+p (10..100).include?(42)       # => true
+p (10..100).cover?(42)         # => true
+puts '-------------------'
+p 'ccc'.between?('a','f')      # => true
+p ('a'..'f').include?('ccc')   # => false
+p ('a'..'f').cover?('ccc')     # => true
+
+The .cover? method is related to the Comparable module, and checks whether an item would fit between the end points in a sorted list. It will return true even if the item is not in the set implied by the Range.
+
+The .include? method is related to the Enumerable module, and checks whether an item is actually in the complete set implied by the Range.
+
+#########################################################################################
+# QUESTION 6
+
+Starting with the string:
+famous_words = "seven years ago..."
+show two different ways to put the expected "Four score and " in front of it.
+
+famous_words.prepend('Four score and ')
+"Four score and " << famous_words
+"Four score and ".concat(famous_words)
+"Four score and " + famous_words
+
+NB:
+famous_words = "seven years ago..."
+p famous_words.prepend("Four score and ")               # mutating!
+famous_words = "seven years ago..."
+p "Four score and ".concat(famous_words)                # not mutating famous_words
+p "Four score and " + famous_words                      # not mutating famous_words
+p "Four score and " << famous_words                     # not mutating famous_words
+p famous_words = "Four score and ".concat(famous_words) # mutating!
+famous_words = "seven years ago..."
+p famous_words = "Four score and " + famous_words       # mutating!
+famous_words = "seven years ago..."
+p famous_words = "Four score and " << famous_words      # mutating!
+#########################################################################################
+# QUESTION 7
+
+Fun with gsub:
+
+def add_eight(number)
+  number + 8
+end
+
+number = 2
+
+how_deep = "number"
+5.times { how_deep.gsub!("number", "add_eight(number)") }
+
+p how_deep
+
+# This gives us a string that looks like a "recursive" method call:
+"add_eight(add_eight(add_eight(add_eight(add_eight(number)))))"
+
+If we take advantage of Ruby's Kernel#eval method to have it execute this string as if it were a "recursive" method call
+what will be the result?
+eval(how_deep)
+=> 42
+
+Happily we are not supposed to understand this yet..
+some help at:
+https://www.safaribooksonline.com/library/view/the-ruby-programming/9780596516178/ch08s02.html
+
+"One of the most powerful and straightforward reflective features of Ruby is its eval method. If your Ruby program can generate a string of valid Ruby code, the Kernel.eval method can evaluate that code:
+
+x = 1
+eval "x + 1"  # => 2
+
+eval is a very powerful function, but unless you are actually writing a shell program (like irb) that executes lines of Ruby code entered by a user you are unlikely to really need it. (And in a networked context, it is almost never safe to call eval on text received from a user, as it could contain malicious code.) Inexperienced programmers sometimes end up using eval as a crutch. If you find yourself using it in your code, see if there isn’t a way to avoid it. Having said that, there are some more useful ways to use eval and eval-like methods."
+#########################################################################################
+
+# QUESTION 8
+
+If we build an array like this:
+
+flintstones = ["Fred", "Wilma"]
+flintstones << ["Barney", "Betty"]
+flintstones << ["BamBam", "Pebbles"]
+
+# We will end up with this "nested" array:
+["Fred", "Wilma", ["Barney", "Betty"], ["BamBam", "Pebbles"]]
+
+Q: Make this into an un-nested array:
+A: flinstones.flatten!
+
+#########################################################################################
+
+# QUESTION 9
+
+Given the hash below
+ flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
+
+Turn this into an array containing only two elements: Barney's name and Barney's number
+
+flintstones.select { |k, v| k == 'Barney'}.flatten
+
+EVEN BETTER:
+flinstones.assoc('Barney')
+
+hash#assoc => .assoc(obj) -> an_array or nil
+searches through the hash comparing obj with the key using ==. Returns the key-value
+pair (2 element array) of nil if no match is found.
+
+nb:
+#p flintstones.slice('Barney').to_a   # not until Ruby 2.5
+p flintstones.select {|k,v| k == 'Barney'}.to_a  # gives [["Barney", 2]], don't want that
+p flintstones.select {|k,v| k == 'Barney'}.to_a.flatten # works, but a bit ugly
+p flintstones.select {|k,v| k == 'Barney'}.flatten  # is wat we want
+
+h = {"Fred" => 0}
+a = [[1,2]]
+h.flatten   # => ["Fred", 0]
+a.flatten   # => [1, 2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
