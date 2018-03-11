@@ -33,10 +33,7 @@ def before_midnight(time)
   hour = time.slice(0, 2).to_i
   minutes = time.slice(3, 2).to_i
 
-  case hour
-  when 0
-    hour_minutes = 0
-  when 24
+  if hour == 0 || hour == 24
     hour_minutes = 0
   else
     hour = 24 - hour
@@ -54,11 +51,12 @@ def after_midnight(time)
   hour = time.slice(0, 2).to_i
   minutes = time.slice(3, 2).to_i
 
-  hour_minutes = case hour
-                 when 0 then 0
-                 when 24 then 0
-                 else hour * MINUTES_IN_HOUR
-                 end
+  hour_minutes =
+    if hour == 0 || hour == 24
+      0
+    else
+      hour * MINUTES_IN_HOUR
+    end
 
   hour_minutes + minutes
 end
@@ -66,7 +64,6 @@ end
 p after_midnight('00:00') == 0
 p after_midnight('12:34') == 754
 p after_midnight('24:00') == 0
-
 
 # LS solution:
 HOURS_PER_DAY = 24
