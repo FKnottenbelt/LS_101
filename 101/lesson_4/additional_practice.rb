@@ -226,6 +226,7 @@ words = "the flintstones rock"
 def titeleize(string)
   words = string.split(' ')
   counter = 0
+
   loop do
     break if counter == words.size
     words[counter] = words[counter].capitalize!
@@ -236,3 +237,111 @@ def titeleize(string)
 end
 
 p titeleize(words)
+
+# version with map
+words = "the flintstones rock"
+
+def titeleize(string)
+  string.split(' ').map do |word|
+    word.capitalize!
+  end.join(' ')
+end
+
+p titeleize(words)
+
+# LS solution
+words.split.map { |word| word.capitalize }.join(' ')
+
+####################
+# Practice Problem 10
+
+# Given the munsters hash below
+# munsters = {
+#   "Herman" => { "age" => 32, "gender" => "male" },
+#   "Lily" => { "age" => 30, "gender" => "female" },
+#   "Grandpa" => { "age" => 402, "gender" => "male" },
+#   "Eddie" => { "age" => 10, "gender" => "male" },
+#   "Marilyn" => { "age" => 23, "gender" => "female"}
+# }
+# Modify the hash such that each member of the Munster family has an
+# additional "age_group" key that has one of three values describing the age
+# group the family member is in (kid, adult, or senior). Your solution should
+# produce the hash below
+
+# { "Herman" => { "age" => 32, "gender" => "male", "age_group" => "adult" },
+#   "Lily" => {"age" => 30, "gender" => "female", "age_group" => "adult" },
+#   "Grandpa" => { "age" => 402, "gender" => "male", "age_group" => "senior" },
+#   "Eddie" => { "age" => 10, "gender" => "male", "age_group" => "kid" },
+#   "Marilyn" => { "age" => 23, "gender" => "female", "age_group" => "adult" } }
+
+# Note: a kid is in the age range 0 - 17, an adult is in the range 18 - 64
+# and a senior is aged 65+.
+
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+# simple loop solution
+keys = munsters.keys
+counter = 0
+
+loop do
+  break if counter == keys.size
+
+  current_key = keys[counter]
+
+  age_group = if munsters[current_key]["age"].between?(0, 17)
+                 'kid'
+              elsif munsters[current_key]["age"].between?(18, 64)
+                 'adult'
+              else
+                 'senior'
+              end
+
+  munsters[current_key]['age_group'] = age_group
+
+  counter += 1
+end
+
+p munsters
+puts '--------------'
+
+# solution with each. NB you do not want a .map here. That would give the
+# last thing, so you would just get the age groups. I guess you could work
+# around that, but .each is easier.
+munsters = {
+  "Herman" => { "age" => 32, "gender" => "male" },
+  "Lily" => { "age" => 30, "gender" => "female" },
+  "Grandpa" => { "age" => 402, "gender" => "male" },
+  "Eddie" => { "age" => 10, "gender" => "male" },
+  "Marilyn" => { "age" => 23, "gender" => "female"}
+}
+
+munsters.each do |name, data|
+  age_group = if data["age"].between?(0, 17)
+                 'kid'
+              elsif data["age"].between?(18, 64)
+                 'adult'
+              else
+                 'senior'
+              end
+  data['age_group'] = age_group
+end
+
+p munsters
+
+# ls solution
+munsters.each do |name, details|
+  case details["age"]
+  when 0...18
+    details["age_group"] = "kid"
+  when 18...65
+    details["age_group"] = "adult"
+  else
+    details["age_group"] = "senior"
+  end
+end
