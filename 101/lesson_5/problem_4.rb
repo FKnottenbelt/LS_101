@@ -19,6 +19,8 @@ p arr2
 
 hsh1[:first][2] = [4]  # or: hsh1[:first][2][0] = 4
 p hsh1
+# but hsh1[:first][2] = [4] replaces the whole sub array, while
+# hsh1[:first][2][0] = 4 just replaces the value
 
 hsh2[['a']][:a][2] = 4
 p hsh2
