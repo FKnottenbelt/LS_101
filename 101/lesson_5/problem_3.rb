@@ -21,3 +21,4 @@ p arr2[1][:third][0]
 p arr3[2][:third][0][0]
 p hsh1['b'][1]
 p hsh2[:third].key(0)
+p hsh2[:third].keys[0]
