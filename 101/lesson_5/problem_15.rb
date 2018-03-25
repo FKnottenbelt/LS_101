@@ -5,6 +5,7 @@
 
 arr = [{a: [1, 2, 3]}, {b: [2, 4, 6], c: [3, 6], d: [4]}, {e: [8], f: [6, 10]}]
 
+# option 1
 out=
 arr.map do |hash|   # {b: [2, 4, 6], c: [3, 6], d: [4]}
 
@@ -15,6 +16,13 @@ arr.map do |hash|   # {b: [2, 4, 6], c: [3, 6], d: [4]}
     hash if evens.all?
 end.compact
 
+p out
+
+# option 2
+out =
+arr.select do |hash|
+  hash.values.flatten.all? { |int| int.even?}
+end
 
 p out
 
