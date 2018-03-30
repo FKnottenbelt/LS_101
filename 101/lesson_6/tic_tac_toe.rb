@@ -16,7 +16,8 @@
 # Step 3: The main game loop (done)
 # Step 4: Determining the winner (done)
 # Step 5: Play again (done)
-# Step 6: refactor with rubocop done
+# Step 6: refactor with rubocop (done)
+# add joiner (done)
 
 require 'pry'
 
@@ -65,7 +66,8 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a square (#{empty_squares(brd).join(', ')}):"
+    open_squares = joinor(empty_squares(brd))
+    prompt "Choose a square (#{open_squares}):"
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that is not a valid choice"
@@ -95,6 +97,17 @@ end
 
 def someone_won?(brd)
   !!detect_winner(brd)
+end
+
+def joinor(arr, delimiter=', ', word='or')
+  case arr.size
+  when 0 then ''
+  when 1 then arr.first
+  when 2 then arr.join(" #{word} ")
+  else
+    arr[-1] = "#{word} #{arr.last}"
+    arr.join(delimiter)
+  end
 end
 
 loop do # main
