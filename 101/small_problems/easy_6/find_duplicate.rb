@@ -9,7 +9,7 @@
 # o: the one duplicate as integer
 # f: - pop en see if your num is still included
 
-def find_dup(arr)
+def find_dup(arr_in)
   duplicate = 0
   loop do
     duplicate = arr.pop
@@ -17,7 +17,6 @@ def find_dup(arr)
   end
   duplicate
 end
-
 
 p find_dup([1, 5, 3, 1]) == 1
 p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
@@ -30,6 +29,20 @@ p find_dup([18,  9, 36, 96, 31, 19, 54, 75, 42, 15,
           85, 87, 51, 17, 66, 20, 28, 26,  2, 22,
           40, 23, 71, 62, 73, 32, 43, 24,  4, 56,
           7,  34, 57, 74, 45, 11, 88, 67,  5, 58]) == 73
+
+# or preserving the intial array:
+def find_dup(arr_in)
+  arr = arr_in.dup
+  duplicate = 0
+  loop do
+    duplicate = arr.pop
+    break if arr.include?(duplicate)
+  end
+  duplicate
+end
+
+# NB: don't freeze incomming array: you can't unfreeze and it will
+# stay frozen even outside the method
 
 # way more elegant ls solution:
 def find_dup(array)
