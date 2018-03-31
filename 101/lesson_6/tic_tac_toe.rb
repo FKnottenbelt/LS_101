@@ -112,6 +112,10 @@ def joinor(arr, delimiter=', ', word='or')
   end
 end
 
+def update_score(score, round_winner)
+  score[round_winner.downcase.to_sym] += 1
+end
+
 def display_score(score)
   puts <<-MSG
        The score is:
@@ -139,8 +143,9 @@ loop do # main
     display_board(board)
 
     if someone_won?(board)
-      prompt "#{detect_winner(board)} won this round!"
-      score[detect_winner(board).downcase.to_sym] += 1
+      round_winner = detect_winner(board)
+      prompt "#{round_winner} won this round!"
+      update_score(score, round_winner)
     else
       prompt "It's a tie!"
     end
@@ -148,11 +153,11 @@ loop do # main
     display_score(score)
 
     if score.values.include?(WINNING_SCORE)
-      winner = score.key(WINNING_SCORE).capitalize
-      prompt "#{winner} won this match!"
+      match_winner = score.key(WINNING_SCORE).capitalize
+      prompt "#{match_winner} won this match!"
       break
     else
-      prompt "Do you want to finish this match? (y/n)?"
+      prompt "Do you want to continue this match? (y/n)?"
       answer = gets.chomp
       break unless answer.downcase.start_with?('y')
     end
