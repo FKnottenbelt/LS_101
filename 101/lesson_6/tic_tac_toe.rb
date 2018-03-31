@@ -19,6 +19,7 @@
 # Step 6: refactor with rubocop (done)
 # add joiner (done)
 # keep score (done)
+# Computer AI: Defense (done)
 
 require 'pry'
 
@@ -37,7 +38,7 @@ end
 
 # rubocop: disable Metrics/AbcSize
 def display_board(brd)
-  system 'clear' || system(cls)
+#  system 'clear' || system(cls)
   puts "You are a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
@@ -77,8 +78,9 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+def computer_places_piece!(brd)  #########
+  square = find_at_risk_square(brd)
+  square = empty_squares(brd).sample if square == 0
   brd[square] = COMPUTER_MARKER
 end
 
@@ -121,6 +123,16 @@ def display_score(score)
        The score is:
        You: #{score[:player]} - Computer: #{score[:computer]}
   MSG
+end
+
+def find_at_risk_square(brd) ##############
+  at_risk_square = 0
+  WINNING_LINES.each do |line|
+    if brd.values_at(*line).count(PLAYER_MARKER) == 2
+      at_risk_square = line.select { |square| brd[square] == INITIAL_MARKER }
+    end
+  end
+  at_risk_square[0]
 end
 ##############################################################
 
