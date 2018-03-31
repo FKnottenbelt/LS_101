@@ -18,12 +18,14 @@
 # Step 5: Play again (done)
 # Step 6: refactor with rubocop (done)
 # add joiner (done)
+# keep score (done)
 
 require 'pry'
 
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+WINNING_SCORE = 2
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
@@ -110,30 +112,55 @@ def joinor(arr, delimiter=', ', word='or')
   end
 end
 
-loop do # main
-  board = initialize_board
+def display_score(score)
+  puts <<-MSG
+       The score is:
+       You: #{score[:player]} - Computer: #{score[:computer]}
+  MSG
+end
+##############################################################
 
-  loop do
+loop do # main
+  score = { player: 0, computer: 0 }
+
+  loop do # match
+    board = initialize_board
+
+    loop do
+      display_board(board)
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end # end round
+
     display_board(board)
 
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
+    if someone_won?(board)
+      prompt "#{detect_winner(board)} won this round!"
+      score[detect_winner(board).downcase.to_sym] += 1
+    else
+      prompt "It's a tie!"
+    end
 
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
+    display_score(score)
 
-  display_board(board)
+    if score.values.include?(WINNING_SCORE)
+      winner = score.key(WINNING_SCORE).capitalize
+      prompt "#{winner} won this match!"
+      break
+    else
+      prompt "Do you want to finish this match? (y/n)?"
+      answer = gets.chomp
+      break unless answer.downcase.start_with?('y')
+    end
+  end # end match
 
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
-
-  prompt "Play again? (y/n)?"
+  prompt "Play a new match? (y/n)?"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
-end
+end # end main
 
 prompt "Thanks for playing Tic Tac Toe. Good bye!"
