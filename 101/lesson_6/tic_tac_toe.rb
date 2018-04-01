@@ -21,6 +21,10 @@
 # keep score (done)
 # Computer AI: Defense (done)
 # Computer AI: Offense (done)
+# Computer turn refinements
+# => a) computer playes offence first (done)
+# => b) pick square #5 if it's available (done)
+# => c) pick who plays first
 
 require 'pry'
 
@@ -28,6 +32,7 @@ INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
 WINNING_SCORE = 2
+FIRST_PLAYER = 'choose' # "player", "computer", or "choose".
 
 WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
                 [[1, 4, 7], [2, 5, 8], [3, 6, 9]] + # columns
@@ -80,8 +85,9 @@ def player_places_piece!(brd)
 end
 
 def computer_places_piece!(brd)
-  square = find_at_risk_square(brd, PLAYER_MARKER)
-  square = find_at_risk_square(brd, COMPUTER_MARKER) if square.nil?
+  square = find_at_risk_square(brd, COMPUTER_MARKER)
+  square = find_at_risk_square(brd, PLAYER_MARKER) if square.nil?
+  square = 5 if square.nil? && brd[5] == INITIAL_MARKER
   square = empty_squares(brd).sample if square.nil?
   brd[square] = COMPUTER_MARKER
 end
@@ -132,26 +138,51 @@ def find_at_risk_square(brd, marker)
   WINNING_LINES.each do |line|
     if brd.values_at(*line).count(marker) == 2
       at_risk_square = line.select { |square| brd[square] == INITIAL_MARKER }
+      break if !at_risk_square.empty?
     end
   end
   at_risk_square.nil? ? nil : at_risk_square[0]
+end
+
+def set_first_player
+  case FIRST_PLAYER
+  when 'choose'
+    prompt "Who plays first? (player/computer)"
+    answer = gets.chomp
+    answer
+  when 'player'
+    'player'
+  when 'computer'
+    'computer'
+  end
 end
 ##############################################################
 
 loop do # main
   score = { player: 0, computer: 0 }
+  starting_player = set_first_player
 
   loop do # match
     board = initialize_board
 
     loop do
-      display_board(board)
+      display_board(board) if starting_player == 'player'
 
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+      case starting_player
+      when 'player'
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
 
-      computer_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      when 'computer'
+        computer_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+
+        display_board(board)
+        player_places_piece!(board)
+        break if someone_won?(board) || board_full?(board)
+      end
     end # end round
 
     display_board(board)
