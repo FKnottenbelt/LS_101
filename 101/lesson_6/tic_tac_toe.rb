@@ -20,6 +20,7 @@
 # add joiner (done)
 # keep score (done)
 # Computer AI: Defense (done)
+# Computer AI: Offense (done)
 
 require 'pry'
 
@@ -38,7 +39,7 @@ end
 
 # rubocop: disable Metrics/AbcSize
 def display_board(brd)
-#  system 'clear' || system(cls)
+  system 'clear' || system(cls)
   puts "You are a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
@@ -78,9 +79,10 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def computer_places_piece!(brd)  #########
-  square = find_at_risk_square(brd)
-  square = empty_squares(brd).sample if square == 0
+def computer_places_piece!(brd)
+  square = find_at_risk_square(brd, PLAYER_MARKER)
+  square = find_at_risk_square(brd, COMPUTER_MARKER) if square.nil?
+  square = empty_squares(brd).sample if square.nil?
   brd[square] = COMPUTER_MARKER
 end
 
@@ -125,14 +127,14 @@ def display_score(score)
   MSG
 end
 
-def find_at_risk_square(brd) ##############
-  at_risk_square = 0
+def find_at_risk_square(brd, marker)
+  at_risk_square = nil
   WINNING_LINES.each do |line|
-    if brd.values_at(*line).count(PLAYER_MARKER) == 2
+    if brd.values_at(*line).count(marker) == 2
       at_risk_square = line.select { |square| brd[square] == INITIAL_MARKER }
     end
   end
-  at_risk_square[0]
+  at_risk_square.nil? ? nil : at_risk_square[0]
 end
 ##############################################################
 
