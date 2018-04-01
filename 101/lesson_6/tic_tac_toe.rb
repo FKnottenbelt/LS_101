@@ -25,8 +25,10 @@
 # => a) computer playes offence first (done)
 # => b) pick square #5 if it's available (done)
 # => c) pick who plays first
-
-require 'pry'
+# Improve the game loop
+# => a) implement place_piece! (done)
+# => b) implement alternate_player (done)
+# => c) change game loop (done)
 
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
@@ -42,9 +44,13 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
+def clear_screen
+  system 'clear' || system(cls)
+end
+
 # rubocop: disable Metrics/AbcSize
 def display_board(brd)
-  system 'clear' || system(cls)
+  clear_screen
   puts "You are a #{PLAYER_MARKER}. Computer is #{COMPUTER_MARKER}."
   puts ""
   puts "     |     |"
@@ -156,33 +162,41 @@ def set_first_player
     'computer'
   end
 end
+
+def alternate_player(player)
+  player == 'player' ? 'computer' : 'player'
+end
+
+def place_piece!(brd, current_player)
+  case current_player
+  when 'player'
+    player_places_piece!(brd)
+  when 'computer'
+    computer_places_piece!(brd)
+  end
+end
 ##############################################################
+clear_screen
+puts <<-MSG
+                     Welcome to Tic Tac Toe!
+
+                 We will play #{WINNING_SCORE} rounds per match
+             First one to win #{WINNING_SCORE} rounds wins the match!
+
+        MSG
 
 loop do # main
   score = { player: 0, computer: 0 }
-  starting_player = set_first_player
+  current_player = set_first_player
 
   loop do # match
     board = initialize_board
 
     loop do
-      display_board(board) if starting_player == 'player'
-
-      case starting_player
-      when 'player'
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      when 'computer'
-        computer_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-
-        display_board(board)
-        player_places_piece!(board)
-        break if someone_won?(board) || board_full?(board)
-      end
+      display_board(board) if current_player == 'player'
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
+      break if someone_won?(board) || board_full?(board)
     end # end round
 
     display_board(board)
