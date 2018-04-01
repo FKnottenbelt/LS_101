@@ -1,34 +1,5 @@
 # tic_tac_toe.rb
 # ==================
-# 1. Display the initial empty 3x3 board.
-# 2. Ask the user to mark a square.
-# 3. Computer marks a square.
-# 4. Display the updated board state.
-# 5. If winner, display winner.
-# 6. If board is full, display tie.
-# 7. If neither winner nor board is full, go to #2
-# 8. Play again?
-# 9. If yes, go to #1
-# 10. Good bye!
-# ===========================
-# Step 1: Set up and display the board (done)
-# Step 2: Player turn (done)
-# Step 3: The main game loop (done)
-# Step 4: Determining the winner (done)
-# Step 5: Play again (done)
-# Step 6: refactor with rubocop (done)
-# add joiner (done)
-# keep score (done)
-# Computer AI: Defense (done)
-# Computer AI: Offense (done)
-# Computer turn refinements
-# => a) computer playes offence first (done)
-# => b) pick square #5 if it's available (done)
-# => c) pick who plays first
-# Improve the game loop
-# => a) implement place_piece! (done)
-# => b) implement alternate_player (done)
-# => c) change game loop (done)
 
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
@@ -150,12 +121,22 @@ def find_at_risk_square(brd, marker)
   at_risk_square.nil? ? nil : at_risk_square[0]
 end
 
+def choose_first_player
+  answer = ''
+  loop do
+    prompt "Who plays first? (p for player/ c for computer)"
+    answer = gets.chomp
+    break if %w[p , c].include?(answer.downcase)
+    prompt 'Please answer p (player) or c (computer)'
+  end
+  answer = 'player' if answer == 'p'
+  answer = 'computer' if answer == 'c'
+end
+
 def set_first_player
   case FIRST_PLAYER
   when 'choose'
-    prompt "Who plays first? (player/computer)"
-    answer = gets.chomp
-    answer
+    choose_first_player
   when 'player'
     'player'
   when 'computer'
@@ -175,7 +156,18 @@ def place_piece!(brd, current_player)
     computer_places_piece!(brd)
   end
 end
-##############################################################
+
+def keep_going?(question)
+  answer = ''
+  loop do
+    prompt question
+    answer = gets.chomp.downcase
+    break if %w[y yeah yes yep n no nope].include?(answer)
+    prompt 'Please answer y (yes) or n (no)'
+  end
+  %w[y yeah yes yep].include?(answer)
+end
+
 clear_screen
 puts <<-MSG
                      Welcome to Tic Tac Toe!
@@ -216,15 +208,11 @@ loop do # main
       prompt "#{match_winner} won this match!"
       break
     else
-      prompt "Do you want to continue this match? (y/n)?"
-      answer = gets.chomp
-      break unless answer.downcase.start_with?('y')
+      break unless keep_going?("Do you want to continue this match? (y/n)?")
     end
   end # end match
 
-  prompt "Play a new match? (y/n)?"
-  answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  break unless keep_going?("Play a new match? (y/n)?")
 end # end main
 
 prompt "Thanks for playing Tic Tac Toe. Good bye!"
