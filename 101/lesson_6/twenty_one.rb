@@ -6,12 +6,20 @@
 # 3. Player turn: hit or stay
 #   - repeat until bust or "stay"
 # 4. If player bust, dealer wins.
-# 5. Dealer turn: hit or stay
+# 5. Dealer turn: hit or stay  (done)
 #   - repeat until total >= 17
 # 6. If dealer bust, player wins.
-# 7. Compare cards and declare winner.
+# 7. Compare cards and declare winner. (done)
 
 SUITES = { 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs', 's' => 'spades' }
+
+def prompt(msg)
+  puts "=> #{msg}"
+end
+
+def clear_screen
+  system 'clear' || system(cls)
+end
 
 def add_number_cards!(cards)
   suites = SUITES.keys
@@ -86,14 +94,54 @@ def calculate_hand_total(deck, current_player)
 
   hand_total
 end
+
+def show_dealer_card(deck)
+  card = deck[:dealer].sample
+  prompt "Dealer card is: #{card[0]} of #{SUITES[card[1]]}"
+end
+def hit_or_stay(deck, current_player)
+  p total = calculate_hand_total(deck, current_player)
+  total <= 17 ? 'hit' : 'stay'
+end
+
+def dealer_turn(deck)
+  number_of_cards_to_deal = 1
+
+  loop do
+    action = hit_or_stay(deck, 'dealer')
+    if action == 'hit'
+      deal(deck, number_of_cards_to_deal, 'dealer')
+    else
+      break
+    end
+  end
+end
+
+def declare_winner(deck)
+  player_total = calculate_hand_total(deck, 'player')
+  dealer_total = calculate_hand_total(deck, 'dealer')
+  winner = if player_total > dealer_total
+             'player'
+           elsif player_total == dealer_total
+             'tie'
+           else
+             'dealer'
+           end
+
+  puts <<-MSG
+
+                    The winner is: #{winner}!
+               score: player: #{player_total} - dealer: #{dealer_total}
+        MSG
+end
+
 #####################################
 deck = initialize_deck!({})
 
 number_of_cards_to_deal = 2
 deal(deck, number_of_cards_to_deal, 'player', 'dealer')
+show_dealer_card(deck)
 
-number_of_cards_to_deal = 1
-deal(deck, number_of_cards_to_deal, 'player')
+dealer_turn(deck)
 
-calculate_hand_total(deck, 'player')
-p deck
+declare_winner(deck)
