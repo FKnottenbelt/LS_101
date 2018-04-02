@@ -11,26 +11,40 @@
 # 6. If dealer bust, player wins.
 # 7. Compare cards and declare winner.
 
-def initialize_unused_cards!
-  cards = []
-  # add number values for 4 suites
+SUITES = { 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs', 's' => 'spades' }
+
+def add_number_cards!(cards)
+  suites = SUITES.keys
   counter = 2
   loop do
     break if counter == 11
-    4.times { cards << counter }
+    suites.each do |suite|
+      cards << [counter, suite]
+    end
     counter += 1
   end
+  cards
+end
 
-  # add picture cards for 4 suites
-  cards << ['jack'] * 4
-  cards << ['queen'] * 4
-  cards << ['king'] * 4
-  cards << ['ace'] * 4
-  cards.flatten!
+def add_picture_cards!(cards)
+  suites = SUITES.keys
+  picture_cards = ['jack', 'queen', 'king', 'ace']
+  picture_cards.each do |picture|
+    suites.each do |suite|
+      cards << [picture, suite]
+    end
+  end
+  cards
+end
+
+def initialize_unused_cards!
+  number_cards = add_number_cards!([])
+  picture_cards = add_picture_cards!([])
+  number_cards + picture_cards
 end
 
 def initialize_deck!(deck)
-  deck[:deck] = initialize_unused_cards!
+  deck[:stock] = initialize_unused_cards!
   deck[:player] = []
   deck[:dealer] = []
   deck
@@ -39,15 +53,23 @@ end
 def deal(deck, number_of_cards_to_deal, *current_player)
   current_player.each do |player|
     number_of_cards_to_deal.times do
-      card = deck[:deck].sample
-      deck[:deck].delete_at(deck[:deck].index(card))
+      card = deck[:stock].sample
+      deck[:stock].delete_at(deck[:stock].index(card))
       deck[player.to_sym] << card
     end
   end
 end
 
+def split_off_values(hand)
+  hand.map do |card|
+    card[0]
+  end
+end
+
 def calculate_hand_total(deck, current_player)
   hand = deck[current_player.to_sym].dup
+  hand = split_off_values(hand)
+
   number_of_aces = hand.count('ace')
   hand.delete('ace')
 
@@ -64,7 +86,6 @@ def calculate_hand_total(deck, current_player)
 
   hand_total
 end
-
 #####################################
 deck = initialize_deck!({})
 
