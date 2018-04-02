@@ -46,6 +46,25 @@ def deal(deck, number_of_cards_to_deal, *current_player)
   end
 end
 
+def calculate_hand_total(deck, current_player)
+  hand = deck[current_player.to_sym].dup
+  number_of_aces = hand.count('ace')
+  hand.delete('ace')
+
+  hand.map! do |card|
+    ['jack', 'queen', 'king'].include?(card) ? 10 : card
+  end
+
+  hand_no_ace_total = hand.sum
+
+  hand_total = hand_no_ace_total
+  number_of_aces.times do
+    hand_total + 11 > 21 ? (hand_total += 1) : (hand_total += 11)
+  end
+
+  hand_total
+end
+
 #####################################
 deck = initialize_deck!({})
 
@@ -55,4 +74,5 @@ deal(deck, number_of_cards_to_deal, 'player', 'dealer')
 number_of_cards_to_deal = 1
 deal(deck, number_of_cards_to_deal, 'player')
 
+calculate_hand_total(deck, 'player')
 p deck
