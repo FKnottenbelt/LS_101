@@ -3,12 +3,12 @@
 ##########################
 # 1. Initialize deck (done)
 # 2. Deal cards to player and dealer (done)
-# 3. Player turn: hit or stay
+# 3. Player turn: hit or stay (done)
 #   - repeat until bust or "stay"
-# 4. If player bust, dealer wins.
+# 4. If player bust, dealer wins. (done)
 # 5. Dealer turn: hit or stay  (done)
 #   - repeat until total >= 17
-# 6. If dealer bust, player wins.
+# 6. If dealer bust, player wins. (done)
 # 7. Compare cards and declare winner. (done)
 
 SUITES = { 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs', 's' => 'spades' }
@@ -100,7 +100,7 @@ def show_dealer_card(deck)
   prompt "Dealer card is: #{card[0]} of #{SUITES[card[1]]}"
 end
 def hit_or_stay(deck, current_player)
-  p total = calculate_hand_total(deck, current_player)
+  total = calculate_hand_total(deck, current_player)
   total <= 17 ? 'hit' : 'stay'
 end
 
@@ -135,13 +135,66 @@ def declare_winner(deck)
         MSG
 end
 
+def bust?(deck, current_player)
+  total = calculate_hand_total(deck, current_player)
+  total > 21 ? true : false
+end
+
+def show_hand(deck, current_player)
+  hand = deck[current_player.to_sym]
+  pretty_hand = hand.map do |card|
+    card[0].to_s + ' of ' + SUITES[card[1]]
+  end
+  prompt "Your hand: #{pretty_hand.join(', ')}"
+end
+
+def ask_hit_or_stay
+  answer = ''
+  loop do
+    prompt "Do you want to hit or stay?"
+    answer = gets.chomp.downcase
+    break if %w[hit stay h s].include?(answer)
+    prompt "Please choose hit or stay"
+  end
+  answer
+end
+
+def player_turn(deck)
+  number_of_cards_to_deal = 1
+  loop do
+    show_hand(deck, 'player')
+    answer = ask_hit_or_stay
+
+    if ['hit', 'h'].include?(answer)
+      deal(deck, number_of_cards_to_deal, 'player')
+      break if bust?(deck, 'player')
+    else
+      break
+    end
+  end
+end
 #####################################
+clear_screen
+puts <<-MSG
+
+                     Welcome to Twenty-One!
+
+        MSG
+
 deck = initialize_deck!({})
 
 number_of_cards_to_deal = 2
 deal(deck, number_of_cards_to_deal, 'player', 'dealer')
 show_dealer_card(deck)
 
-dealer_turn(deck)
-
-declare_winner(deck)
+player_turn(deck)
+if bust?(deck, 'player')
+  prompt "Oeps, you went bust... Dealer wins."
+else
+  dealer_turn(deck)
+  if bust?(deck, 'dealer')
+    prompt 'Dealer went bust! You won!'
+  else
+    declare_winner(deck)
+  end
+end
