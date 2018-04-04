@@ -99,6 +99,7 @@ def show_dealer_card(deck)
   card = deck[:dealer].sample
   prompt "Dealer card is: #{card[0]} of #{SUITES[card[1]]}"
 end
+
 def hit_or_stay(deck, current_player)
   total = calculate_hand_total(deck, current_player)
   total <= 17 ? 'hit' : 'stay'
@@ -132,6 +133,7 @@ def declare_winner(deck)
 
                     The winner is: #{winner}!
                score: player: #{player_total} - dealer: #{dealer_total}
+
         MSG
 end
 
@@ -173,28 +175,50 @@ def player_turn(deck)
     end
   end
 end
-#####################################
-clear_screen
-puts <<-MSG
+
+def display_welcome
+  puts <<-MSG
 
                      Welcome to Twenty-One!
 
         MSG
-
-deck = initialize_deck!({})
-
-number_of_cards_to_deal = 2
-deal(deck, number_of_cards_to_deal, 'player', 'dealer')
-show_dealer_card(deck)
-
-player_turn(deck)
-if bust?(deck, 'player')
-  prompt "Oeps, you went bust... Dealer wins."
-else
-  dealer_turn(deck)
-  if bust?(deck, 'dealer')
-    prompt 'Dealer went bust! You won!'
-  else
-    declare_winner(deck)
-  end
 end
+
+def keep_going?(question)
+  answer = ''
+  loop do
+    prompt question
+    answer = gets.chomp.downcase
+    break if %w[y yeah yes yep n no nope].include?(answer)
+    prompt 'Please answer y (yes) or n (no)'
+  end
+  %w[y yeah yes yep].include?(answer)
+end
+#####################################
+clear_screen
+display_welcome
+
+loop do
+  deck = initialize_deck!({})
+
+  number_of_cards_to_deal = 2
+  deal(deck, number_of_cards_to_deal, 'player', 'dealer')
+  show_dealer_card(deck)
+
+  player_turn(deck)
+  if bust?(deck, 'player')
+    prompt "Oeps, you went bust... Dealer wins."
+  else
+    dealer_turn(deck)
+    if bust?(deck, 'dealer')
+      prompt 'Dealer went bust! You won!'
+    else
+      declare_winner(deck)
+    end
+  end
+
+  break unless keep_going?("Play again? (y/n)?")
+  clear_screen
+end
+
+prompt "Thank you for playing Twenty-One. Good bye!"
