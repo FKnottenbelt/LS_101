@@ -1,16 +1,5 @@
 # twenty_one.rb
 
-##########################
-# 1. Initialize deck (done)
-# 2. Deal cards to player and dealer (done)
-# 3. Player turn: hit or stay (done)
-#   - repeat until bust or "stay"
-# 4. If player bust, dealer wins. (done)
-# 5. Dealer turn: hit or stay  (done)
-#   - repeat until total >= 17
-# 6. If dealer bust, player wins. (done)
-# 7. Compare cards and declare winner. (done)
-
 SUITES = { 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs', 's' => 'spades' }
 
 def prompt(msg)
@@ -194,7 +183,7 @@ def keep_going?(question)
   end
   %w[y yeah yes yep].include?(answer)
 end
-#####################################
+
 clear_screen
 display_welcome
 
