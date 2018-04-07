@@ -1,6 +1,7 @@
 # Explaining Code in Words
+using [Srdjan's post](https://medium.com/how-i-started-learning-coding-from-scratch/advice-for-109-written-assessment-part-2-594060594f6e)
 
-## Algemeen
+## General
 20 questions, 3 hours (9 minutes per question.) Lot's of explaining code so
 typing a LOT.
 
@@ -54,6 +55,7 @@ a string object with value `hello`.
   Get used to that phrase.
 - As of Ruby 2.4, the `Fixnum` and Bignum classes are gone, there is only
   `Integer`
+- End by giving `output` and `return value`
 
 #### example 2:
 
@@ -87,4 +89,18 @@ On `line 5` the local variable `i` is reassigned to the return value of a
 method call `Integer#-` on a local variable `i` with integer `1` passed to it as
 an argument.
 
+On `line 6` we are breaking out of the loop by using the keyword `break` if the
+value of the object that local variable `i` is referencing is equal to 0.
 
+On `line 10` we are calling the method `example` and passing in string `hello` as
+an argument.
+
+This code outputs string `hello` 3 times and returns `nil`.
+
+Because (don't know if you have to give this part too):
+We are calling the `puts` method inside of our method definition, and the last
+line of code that is executed is returned since we don’t have an explicit
+return inside of the method definition. The method `puts` is outputting values
+of objects, strings, integers and so on, so our method call on `line 10`
+outputs the string `hello` 3 times, but returns `nil` since the last line of the
+code in example method that is evaluated returns `nil`.
