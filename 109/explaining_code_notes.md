@@ -49,7 +49,8 @@ a string object with value `hello`.
  method has a `return value`)
 - a method is `called on` a variabele
 
-- `loop` is method of `Kernel` class
+- `loop` is method of `Kernel` class and returns `nil` or whatever the
+ expression after the loop returns.
 - a `do..end block` is passed as an `argument` to a `method call`
 - You are going to use a lot of `passing in as an argument` on the test.
   Get used to that phrase.
@@ -104,3 +105,90 @@ return inside of the method definition. The method `puts` is outputting values
 of objects, strings, integers and so on, so our method call on `line 10`
 outputs the string `hello` 3 times, but returns `nil` since the last line of the
 code in example method that is evaluated returns `nil`.
+
+should be ?:
+Because the last evaluated statement in the loop is `break` (implicit
+break which is `break nil`) and thus returns `nil`
+
+## variable scope examples:
+
+#### example 3:
+```ruby
+a = 4
+
+loop do
+  a = 5
+  b = 3
+  break
+end
+
+puts a
+puts b
+```
+
+On `line 1` the local variable `a` is intialized and assigned an integer object
+with the value `4`
+
+On `line 2` we call the method `loop` and pass it a `do..end` block as an
+argument.
+
+On `line 3` the local variable `a` is reassigned to an integer object
+with the value `5`
+
+On `line 4` the local variable `b` is intialized and assigned an integer object
+with the value `3` (inner scope)
+
+On `line 5` we are breaking out of the loop by calling the keyword `break`.
+
+On `line 6` we are calling the method `puts` and passing it local variable `a`
+as an argument. `puts` will print the value of string object that `a` is
+referencing, which is `5`. The return value of the `puts` will be `nil`
+
+On `line 7` we are calling the method `puts` and passing it local variable `b`
+as an argument. `puts` will try to print the value of string object that `b` is
+referencing, but since `b` was initialized in the inner scope of the `loop`
+method, `puts` can not access `b` and will throw an error.
+
+#### example 4:
+```ruby
+a = 4
+b = 2
+
+loop do
+  c = 3
+  a = c
+  break
+end
+
+puts a
+puts b
+```
+
+On `line 1` the local variable `a` is intialized an assingend an integer object
+with the value of `4`
+
+On `line 1` the local variable `b` is intialized an assingend an integer object
+with the value of `2`
+
+On `line 3` we call the method `loop`  and pass it an `do..end` block as
+an argument.
+
+On `line 4` the local variable `c` is intialized an assigned an integer object
+with the value of `3`. (inner scope)
+
+On `line 5` the local variable `a` is reassigned to an object that
+the local variable `c` is referencing. Currently, both of these local
+variables are pointing to the same object.
+(inner scope can access variables from outer scope)
+
+On `line 6` we break out of the loop by calling the keyword `break`. Which
+will retrun `nil` and thus the method `loop` will return `nil`
+
+On `line 7` we are calling the method `puts` and passing it the variabele `a`
+as an argument. `puts` will print the value of the object that `a` is
+referencing which is `3`. The return value of `puts` is nil.
+
+On `line 8` we are calling the method `puts` and passing it the variabele `b`
+as an argument. `puts` will print the value of the object that `b` is
+referencing which is `2`. The return value of `puts` is nil.
+
