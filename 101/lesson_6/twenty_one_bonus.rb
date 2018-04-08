@@ -4,9 +4,18 @@ SUITES = { 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs', 's' => 'spades' }
 DEALER_MAX = 17
 BUST = 21
 MATCH = 2
+LINE_WIDTH = 80
 
 def prompt(msg)
   puts "=> #{msg}"
+end
+
+def multi_line_prompt(messages_array)
+  puts
+  messages_array.each do |line|
+    puts line.center(LINE_WIDTH)
+  end
+  puts
 end
 
 def clear_screen
@@ -59,7 +68,7 @@ def deal(deck, current_player)
   card = deck[:stock].sample
   deck[:stock].delete_at(deck[:stock].index(card))
   current_player[:hand] << card
-  update_hand_total(deck, current_player)
+  update_hand_total(current_player)
 end
 
 def split_off_values(hand)
@@ -68,7 +77,7 @@ def split_off_values(hand)
   end
 end
 
-def calculate_hand_total(deck, current_player)
+def calculate_hand_total(current_player)
   hand = current_player[:hand].dup
   hand = split_off_values(hand)
 
@@ -94,47 +103,71 @@ def show_dealer_card(dealer)
   prompt "Dealer card is: #{card[0]} of #{SUITES[card[1]]}"
 end
 
-def hit_or_stay(deck, current_player)
-  total = calculate_hand_total(deck, current_player)
+def hit_or_stay(current_player)
+  total = calculate_hand_total(current_player)
   total <= DEALER_MAX ? 'hit' : 'stay'
 end
 
 def dealer_turn(deck, dealer)
   loop do
-    action = hit_or_stay(deck, dealer)
+    action = hit_or_stay(dealer)
     if action == 'hit'
-      deal(deck,dealer)
+      deal(deck, dealer)
     else
       break
     end
   end
 end
 
-def declare_winner(player, dealer)
-  player_total = player[:total]
-  dealer_total = dealer[:total]
-  winner = if player_total > dealer_total
-             'player'
-           elsif player_total == dealer_total
-             'tie'
-           else
-             'dealer'
-           end
-
-  puts <<-MSG
-
-                    The winner is: #{winner}!
-               score: player: #{player_total} - dealer: #{dealer_total}
-
-        MSG
+def display_round_winner(player, dealer, winner, score)
+  message = []
+  message << "The winner of this round is: #{winner}!"
+  message << "score: player: #{player[:total]} - dealer: #{dealer[:total]}"
+  message << "rounds score: player: #{score[:player]} - dealer: " \
+             "#{score[:dealer]}"
+  message << "(win #{MATCH} rounds to win a match)"
+  multi_line_prompt(message)
 end
 
-def update_hand_total(deck, current_player)
-  total = calculate_hand_total(deck, current_player)
+def display_match_winner(winner, score)
+  message = []
+  message << "The winner of this match is: #{winner}!"
+  message << "score: player: #{score[:player]} - dealer: #{score[:dealer]}"
+  multi_line_prompt(message)
+end
+
+def update_score(score, winner)
+  return if winner == 'tie'
+  score[winner.to_sym] += 1
+end
+
+def declare_round_winner(player, dealer)
+  player_total = player[:total]
+  dealer_total = dealer[:total]
+
+  if player_total > dealer_total
+    'player'
+  elsif player_total == dealer_total
+    'tie'
+  else
+    'dealer'
+  end
+end
+
+def declare_match_winner(score)
+  if score[:player] == score[:dealer]
+    'tie'
+  else
+    score.key(score.values.max).to_s
+  end
+end
+
+def update_hand_total(current_player)
+  total = calculate_hand_total(current_player)
   current_player[:total] = total
 end
 
-def bust?(deck, current_player)
+def bust?(current_player)
   total = current_player[:total]
   total > BUST ? true : false
 end
@@ -159,14 +192,15 @@ def ask_hit_or_stay
   answer
 end
 
-def player_turn(deck, player)
+def player_turn(deck, player, score)
   loop do
     show_hand(player)
+    show_score(score)
     answer = ask_hit_or_stay
 
     if answer == 'h'
       deal(deck, player)
-      break if bust?(deck, player)
+      break if bust?(player)
     else
       break
     end
@@ -177,6 +211,11 @@ def display_welcome
   puts <<-MSG
 
                      Welcome to Twenty-One!
+
+              First to win #{MATCH} rounds, wins the match
+
+You are trying to get a card total as close as possible to #{BUST}
+        If you go over you are bust and lose the round
 
         MSG
 end
@@ -191,35 +230,55 @@ def keep_going?(question)
   end
   %w[y yeah yes yep].include?(answer)
 end
+
+def show_score(score)
+  prompt "The rounds score is (get #{MATCH} to win): " \
+  "player: #{score[:player]} - dealer: #{score[:dealer]}"
+  puts
+end
 ########################################
 clear_screen
 display_welcome
 
-score = { player: 0, dealer: 0 }
+loop do # match
+  score = { player: 0, dealer: 0 }
+  player = {}
+  dealer = {}
 
-loop do
-  deck = initialize_deck!({})
-  player = { hand: [], total: 0, bust: false }
-  dealer = { hand: [], total: 0, bust: false }
+  loop do # round
+    deck = initialize_deck!({})
+    player = { hand: [], total: 0, bust: false }
+    dealer = { hand: [], total: 0, bust: false }
 
-  open_game(player, dealer, deck)
-  show_dealer_card(dealer)
+    open_game(player, dealer, deck)
+    show_dealer_card(dealer)
 
-  player_turn(deck, player)
-  if bust?(deck, player)
-    prompt "Oeps, you got a #{player[:hand].last.first} and " \
-    "went bust... Dealer wins."
-  else
-    dealer_turn(deck, dealer)
-    if bust?(deck, dealer)
-      prompt 'Dealer went bust! You won!'
+    player_turn(deck, player, score)
+    if bust?(player)
+      prompt "Oeps, you got a #{player[:hand].last.first} and " \
+      "went bust... Dealer wins."
+      score[:dealer] += 1
+      show_score(score)
     else
-      declare_winner(player, dealer)
+      dealer_turn(deck, dealer)
+      if bust?(dealer)
+        prompt 'Dealer went bust! You won!'
+        score[:player] += 1
+        show_score(score)
+      else
+        winner = declare_round_winner(player, dealer)
+        update_score(score, winner)
+        display_round_winner(player, dealer, winner, score)
+      end
     end
-  end
 
-  break unless keep_going?("Play again? (y/n)?")
-  clear_screen
-end
+    break if score.values.include?(2)
+    break unless keep_going?("Play an other round? (y/n)?")
+    clear_screen
+  end # round
 
+  winner = declare_match_winner(score)
+  display_match_winner(winner, score)
+  break unless keep_going?("Play an other match? (y/n)?")
+end # match
 prompt "Thank you for playing Twenty-One. Good bye!"
