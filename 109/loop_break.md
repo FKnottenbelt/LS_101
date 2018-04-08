@@ -47,3 +47,14 @@ end
 # 10
 # => 10
 ```
+
+```ruby
+loop do
+  a = 10
+  puts a
+  break a == 10
+end
+
+# 10
+# => true
+```
