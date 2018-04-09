@@ -48,3 +48,27 @@ end
 puts a
 puts b
 ```
+
+#### example 5:
+
+```ruby
+a = 4
+b = 2
+
+2.times do |a|
+  a = 5
+  puts a
+end
+
+puts a
+puts b
+```
+
+#### example 6:
+[1, 2, 3, 4].each { |num| puts num }
+
+#### example 7:
+[1, 2, 3, 4].map { |num| puts num }
+
+#### example 8:
+[1, 2, 3, 4].select { |num| puts num }
