@@ -12,6 +12,15 @@ Use backticks for:
 
 use paragraphs
 
+When evaluating code like this, ask the following questions:
+•	What is the type of action being performed (method call, block,
+  conditional, etc..)?
+•	What is the object that action is being performed on?
+•	What is the side-effect of that action (e.g. output or destructive action)?
+•	What is the return value of that action?
+•	Is the return value used by whatever instigated the action?
+
+
 ## Variable Words: initialized, assign, referencing, reassign
 - a variable is `initialized`
 - you `assign` a *string* object with the value 'x' to a *local* variable
@@ -270,7 +279,7 @@ Array#map returns a new array based on the block’s return value. Each
 element is transformed based on the return value.
 
 Since the return value of the block is `nil`, Array#map will return an
-array with every orignal element transformed into `nil` 
+array with every orignal element transformed into `nil`
 => `[nil, nil, nil, nil]`
 
 #### example 8:
@@ -285,9 +294,34 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-Array#select returns a new array based on the block’s return value. 
+Array#select returns a new array based on the block’s return value.
 If the return value evaluates to true (or: is truthy), then the element
 is selected.
 
 Since the return value of the block is `nil` (which evaluates to false)
 for each passed in element, Array#select will return an empty array.
+
+#### example 9:
+```ruby
+[[1, 2], [3, 4]].each do |arr|
+  puts arr.first
+end
+```
+
+The `Array#each` method is being called on the multi-dimensional array
+`[[1, 2], [3, 4]]`. Each inner array is passed to the block in turn and
+assigned to the local variable `arr`.
+
+The `Array#first` method is calledon `arr` and returns the object at
+`index 0` of the current array - in this case the integers `1` and `3`,
+respectively.
+
+The `puts` method then outputs a string representation of the integer.
+`puts` returns `nil` and, since this is the last evaluated statement
+within the block, the return value of the block is therefore `nil`.
+
+`each` doesn't do anything with this returned value though, and since
+the return value of each is the calling object - in this case the
+nested array `[[1, 2], [3, 4]]` - this is what is ultimately returned
+
+
