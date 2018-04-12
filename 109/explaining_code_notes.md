@@ -56,7 +56,7 @@ a string object with value `hello`.
   (Methods are defined with parameters, but they are called with arguments)
 - a variable can be `assigned to the return value of a method call` (so a
  method has a `return value`)
-- a method is `called on` a variabele
+- a method is `called on` a variable
 
 - `loop` is method of `Kernel` class and returns `nil` or whatever the
  expression after the loop returns.
@@ -193,11 +193,11 @@ variables are pointing to the same object.
 On `line 6` we break out of the loop by calling the keyword `break`. Which
 will retrun `nil` and thus the method `loop` will return `nil`
 
-On `line 7` we are calling the method `puts` and passing it the variabele `a`
+On `line 7` we are calling the method `puts` and passing it the variable `a`
 as an argument. `puts` will print the value of the object that `a` is
 referencing which is `3`. The return value of `puts` is nil.
 
-On `line 8` we are calling the method `puts` and passing it the variabele `b`
+On `line 8` we are calling the method `puts` and passing it the variable `b`
 as an argument. `puts` will print the value of the object that `b` is
 referencing which is `2`. The return value of `puts` is nil.
 

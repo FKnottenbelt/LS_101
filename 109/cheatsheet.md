@@ -55,7 +55,7 @@ This code returns value of the object it was called on, `2` in this case.
 
 ### each
 [1, 2, 3, 4].each { |num| puts num }
-The Array#each method is being called on an array.
+The `Array#each` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -64,12 +64,12 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-Array#each doesn't do anything with the return value of the block, it
+`Array#each` doesn't do anything with the return value of the block, it
 returns the original array - in this case `[1, 2, 3, 4]`
 
 ### map
 [1, 2, 3, 4].map { |num| puts num }
-The Array#map method is being called on an array.
+The `Array#map` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -78,17 +78,17 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-Array#map returns a new array based on the block’s return value. Each
+`Array#map` returns a new array based on the block’s return value. Each
 element is transformed based on the return value.
 
-Since the return value of the block is `nil`, Array#map will return an
+Since the return value of the block is `nil`, `Array#map` will return an
 array with every orignal element transformed into `nil`
 => `[nil, nil, nil, nil]`
 
 ### select
 [1, 2, 3, 4].select { |num| puts num }
 
-The Array#select method is being called on an array.
+The `Array#select` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -97,9 +97,9 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-Array#select returns a new array based on the block’s return value.
+`Array#select` returns a new array based on the block’s return value.
 If the return value evaluates to true (or: is truthy), then the element
 is selected.
 
 Since the return value of the block is `nil` (which evaluates to false)
-for each passed in element, Array#select will return an empty array.
+for each passed in element, `Array#select` will return an empty array.
