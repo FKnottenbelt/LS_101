@@ -80,14 +80,14 @@ puts b
 end
 ```
 
-### example 9a
+### example 10
 ```ruby
 [[1, 2], [3, 4]].map do |arr|
   puts arr.first
 end
 ```
 
-### example 9b
+### example 11
 ```ruby
 [[1, 2], [3, 4]].map do |arr|
   puts arr.first
@@ -95,7 +95,7 @@ end
 end
 ```
 
-### example 9c
+### example 12
 ```ruby
 my_arr = [[18, 7], [3, 12]].each do |arr|
   arr.each do |num|
@@ -106,7 +106,7 @@ my_arr = [[18, 7], [3, 12]].each do |arr|
 end
 ```
 
-### example 9d
+### example 13
 ```ruby
 [[1, 2], [3, 4]].map do |arr|
   arr.map do |num|
@@ -114,7 +114,7 @@ end
   end
 end
 ```
-### example 9e
+### example 14
 ```ruby
 [{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
   hash.all? do |key, value|
@@ -123,7 +123,7 @@ end
 end
 ```
 
-### example 9f
+### example 15
 ```ruby
 arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
 arr.sort_by do |sub_arr|
@@ -132,7 +132,7 @@ arr.sort_by do |sub_arr|
   end
 end
 ```
-### example 9g
+### example 36
 ```ruby
 [[8, 13, 27], ['apple', 'banana', 'cantaloupe']].map do |arr|
   arr.select do |item|
@@ -145,7 +145,7 @@ end
 end
 ```
 
-### example 9h
+### example 16
 ```ruby
 [[[1], [2], [3], [4]], [['a'], ['b'], ['c']]].map do |element1|
   element1.each do |element2|
@@ -156,7 +156,7 @@ end
 end
 ```
 
-### example 9i
+### example 17
 ```ruby
 [[[1, 2], [3, 4]], [5, 6]].map do |arr|
   arr.map do |el|
@@ -171,7 +171,7 @@ end
 end
 ```
 
-### example 10
+### example 18
 ```ruby
 def cap(str)
   str.capitalize!
@@ -180,7 +180,7 @@ name = "jim"
 cap(name)
 puts name
 ```
-### example 10a
+### example 19
 ```ruby
 def cap(str)
   str.capitalize
@@ -191,7 +191,7 @@ cap(name)
 puts name
 ```
 
-### example 10b
+### example 20
 ```ruby
 def add_name(arr, name)
   arr << name
@@ -201,7 +201,7 @@ names = ['bob', 'kim']
 add_name(names, 'jim')
 puts names.inspect
 ```
-### example 10c
+### example 21
 ```ruby
 def add_name(arr, name)
   arr = arr + [name]
@@ -211,3 +211,106 @@ names = ['bob', 'kim']
 add_name(names, 'jim')
 puts names.inspect
 ```
+
+### example 22
+a = 5
+loop do
+  puts a
+  break
+end
+
+### example 23
+a = 5
+loop do
+  a = 4
+  break
+end
+a
+
+### example 24
+loop do
+  b = 5
+end
+puts b
+
+### example 25
+b = nil
+loop do
+  b = 5
+end
+puts b
+
+### example 26
+a = 5
+def my_method(number)
+  a = 4
+end
+my_method(10)
+puts a
+
+### example 27
+def my_method(string)
+  puts string
+end
+a = "hello"
+my_method(a)
+
+### example 28
+def my_method
+  number = yield
+  puts number
+end
+
+a = 4
+my_method { a }
+
+### example 29
+for i in (0..5) do
+  a = 5
+end
+puts a
+
+### example 30
+loop do
+  a = 5
+  break
+end
+puts a
+
+### example 31
+2.times do
+  a = 5
+end
+3.times do
+  puts a
+end
+
+### example 32
+a = 5
+3.times do
+  a = 3
+end
+5.times do
+  puts a
+end
+
+### example 33
+n = 4
+[1, 2, 3].each { |n| n + 1 }
+
+### example 34
+n = 4
+[1, 2, 3].each { |m| m + 1 }
+
+### example 35
+```ruby
+def fix(value)
+  value << 'xyz'
+  value = value.upcase
+  value.concat('!')
+end
+s = 'hello'
+t = fix(s)
+```
+
+### example 37 (36 is taken)
