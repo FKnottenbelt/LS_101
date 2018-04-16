@@ -191,12 +191,131 @@ And after reassignment being mutated without mutating the caller.
      reassigned in line 3, it is no longer assigned to the same string object as
      the outerscope variable `s` and thus `s` is not impacted)
 
+### example 22
+a = 5
+loop do
+  puts a
+  break
+end
+
+In `line 1` we intialize the local variable `a` and assign it to an integer
+object with the value `5`
+
+In `line 2` we call the `loop` method and pass it a block as an argument.
+In the block we call the method `puts` and pass it the local variable `a` as
+and argument. `puts` outputs a string representation `a` so wil output '5' and
+return nil. (inner scope in block can access outer scope variable)
+
+in `lline 5` we call the keyword `break`. This will break out of the loop and
+return nil as the block result, so the `loop` method will return `nil`
+
+### example 23
+a = 5
+loop do
+  a = 4
+  break
+end
+a
+
+In `line 1` we intialize the local variable `a` and assign it to an integer
+object with the value `5`
+
+In `line 2` we call the `loop` method and pass it a block as an argument.
+In the block we reassign the local variable `a` to an object with the value
+`4` (inner scope in block can access outer scope variable)
+
+in `lline 5` we call the keyword `break`. This will break out of the loop and
+return nil as the block result, so the `loop` method will return `nil`
+
+in `line 6` the local variable `a` will point to the value `4` since this
+outerscope variable got reassigned in line `3`
+
+"This example demonstrates two things. The first is that inner scope can access
+outer scope variables. The second, and less intuitive, concept is that you can
+change variables from an inner scope and have that change affect the outer scope"
+
+"outer scope variables can be accessed by inner scope"
+
+### example 24
+loop do
+  b = 5
+  break
+end
+puts b
+
+In `line 1` we pass a block to the `loop` method. In the inner scope created
+by the block we intialize the local variable `b` and assign it an object with
+the value `5`.
+
+in `line 3` we call the keyword `break`. This will break out of the loop and
+return nil as the block result, so the `loop` method will return `nil`
+
+In `line 5` we pass the local variable `b` to the `puts` method as an
+argument. Puts will try to output a string representation of the variable `b`
+but wil be unable to access a variable initialized by the inner scope made
+by the block and will throw an error message
+
+"inner scope variables cannot be accessed in outer scope"
+
+### example 25
+b = nil
+loop do
+  b = 5
+end
+puts b
+
+In `line 1` the local variable `b` is initialized and assigned to `nil`
+
+In `line 2` we pass a block to the method `loop` as an argument.
+In the block we reassign the variable `b` to an object with the value `5`
+(outer scope variables can be accessed by inner scope). The block will output
+nothing and return the last evaluated statement which will return `5`
+
+In line 6 we pass the local variabele `b` to the `puts` method as an argument
+Puts will output a string representation of the variable `b` and return nil
+
+- you can change variables from an inner scope and have that change affect
+  the outer scope
+- outerscope can access changes make by inner scope if the variable was
+  intialized in outer scope.
+
+### example 26
+a = 5
+def my_method(number)
+  a = 4
+end
+my_method(10)
+puts a
+
+
 ### example 27
 def my_method(string)
   puts string
 end
 a = "hello"
 my_method(a)
+
+### example 28
+def my_method
+  number = yield
+  puts number
+end
+
+a = 4
+my_method { a }
+
+### example 29
+for i in (0..5) do
+  a = 5
+end
+puts a
+
+### example 30
+loop do
+  a = 5
+  break
+end
+puts a
 
 ### example 31
 2.times do
@@ -205,3 +324,22 @@ end
 3.times do
   puts a
 end
+
+### example 32
+a = 5
+3.times do
+  a = 3
+end
+5.times do
+  puts a
+end
+
+
+### example 33
+n = 4
+[1, 2, 3].each { |n| n + 1 }
+
+### example 34
+n = 4
+[1, 2, 3].each { |m| m + 1 }
+

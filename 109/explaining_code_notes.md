@@ -344,6 +344,7 @@ a
 ### example 24
 loop do
   b = 5
+  break
 end
 puts b
 
@@ -351,6 +352,7 @@ puts b
 b = nil
 loop do
   b = 5
+  break
 end
 puts b
 

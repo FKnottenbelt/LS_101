@@ -7,7 +7,6 @@ assigning a string object with value `hello` to it.
 On `line 3` we are reassigning the local variable `a` to a different string
 object with value `hello` .
 
-
 ### b = a
 On `line 2` we are initializing the local variable `b` and assigning to
 it a string object that the local variable `a` is referencing. Currently,
@@ -103,3 +102,19 @@ is selected.
 
 Since the return value of the block is `nil` (which evaluates to false)
 for each passed in element, `Array#select` will return an empty array.
+
+# variable scope concepts
+- outer scope variables can be accessed by inner scope
+- you can change variables from an inner scope and have that change affect
+  the outer scope
+- outerscope can access changes make by inner scope if the variable was
+  intialized in outer scope.
+- inner scope variables cannot be accessed in outer scope
+- peer scopes do not conflict
+- nested blocks
+- variable shadowing
+
+## variable scope and methods concepts
+- a method definition can't access local variables in another scope
+- a method definition can access objects passed in
+
