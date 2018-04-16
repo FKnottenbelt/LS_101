@@ -287,6 +287,28 @@ end
 my_method(10)
 puts a
 
+In `line 1` we intialize local variable `a` and assign to an object with the
+value of `5`.
+
+In `line 2` we define a method `my_method` with the variable `number` as a
+parameter.
+
+In `line 5` we call the method `my_method` and pass it the value `10` as
+an argument. Nothing is done with this argument.
+
+In the method de local variabe `a` is intialized and assigned a value
+of `4`. This is a completely different variable than the one in the ouder scope
+
+The method outputs nothing and returns `4`.
+SO the call to the method (line 5) returns this `4`
+
+In line 6 the local variable `a` is passed as an argument to the `puts` method
+Since the only variable `a` that is available here is the one from line 1,
+puts will output `5` and return nil.
+
+- inner scope variables cannot be accessed in outer scope
+- a method definition can't access local variables in another scope
+
 
 ### example 27
 def my_method(string)
@@ -294,6 +316,24 @@ def my_method(string)
 end
 a = "hello"
 my_method(a)
+
+in line 4 the local variable `a` is intialized and assigned to an object
+with the value  `hello`
+
+In line 5 the method `my_method` is called and is passed the local variable
+`a` as an argument
+
+In line 1 the method `my_method` is defined with the variable `string` as
+an parameter. the call in line 5 passes `a` to the method. `a` is assigned to
+`string`.
+
+on line 2 the variable `string` is passed to the method `puts` as an argument
+. puts outputs 'hello' and returns nil
+
+the methods returns nil, so the call to my_method returns nil
+
+- a method definition can access objects passed in
+
 
 ### example 28
 def my_method

@@ -117,4 +117,7 @@ for each passed in element, `Array#select` will return an empty array.
 ## variable scope and methods concepts
 - a method definition can't access local variables in another scope
 - a method definition can access objects passed in
-
+- The scope of a method is disjoint from outside scope: local variables
+  defined outside of the method are not accessible from within the method,
+  and local variables defined in the method are not acessible from outside
+  the method
