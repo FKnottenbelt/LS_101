@@ -111,6 +111,7 @@ for each passed in element, `Array#select` will return an empty array.
   intialized in outer scope.
 - inner scope variables cannot be accessed in outer scope
 - peer scopes do not conflict
+- A block cannot access variables defined in a peer scope
 - nested blocks
 - variable shadowing
 
@@ -121,3 +122,5 @@ for each passed in element, `Array#select` will return an empty array.
   defined outside of the method are not accessible from within the method,
   and local variables defined in the method are not acessible from outside
   the method
+- A do/end pair that does not follow a method invocation does not constitute
+  a block, so no nested scope is created

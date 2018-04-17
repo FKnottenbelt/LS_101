@@ -261,6 +261,7 @@ by the block and will throw an error message
 b = nil
 loop do
   b = 5
+  break
 end
 puts b
 
@@ -344,18 +345,42 @@ end
 a = 4
 my_method { a }
 
+On line 5 the local variable `a` is intialized and assigned the value `4`
+This variable is then in a block passed as an argument to the method `my_method`
+(line 6)
+
+In line 1 the method `my_method` is defined
+On line 2 the local variable `number` is initialized and assigned to the
+return value of the `yield` keyword. The yield keyword causes the control
+to go to the block if one was passed in to the method as an argument.
+In this case that was done on line 6. The block will return the value of `a`,
+which is `4`. So the yield will return `4` and `4` will be assigned to
+`number`
+
+On line 3 the variable `number` is passed to the `puts` method as an argument
+puts will print a string representation of `number` ('4') and will return nil
+The method will thus ouput `4` and return nil
+
+- a method definition can access objects passed in
+
 ### example 29
 for i in (0..5) do
   a = 5
 end
 puts a
 
-### example 30
-loop do
-  a = 5
-  break
-end
-puts a
+in line 1 a `for` loop iterates from 0 to 5. Inside the for loop the local
+variable `a` is initialized and assigned the value `5`. The for loop has no
+output and will return the range it iterated over (0..5)
+
+In line 4 the local variable `a` is passed as an argument to the method
+puts. Puts will output a string representation of the value `a` is pointing to,
+which is `5` and will return nil Puts can acces `a` becasue the for loop does
+not make an inner scope.
+
+- A do/end pair that does not follow a method invocation does not constitute
+  a block, so no nested scope is created
+
 
 ### example 31
 2.times do
@@ -364,6 +389,21 @@ end
 3.times do
   puts a
 end
+
+
+- A block cannot access variables defined in a peer scope
+
+On line 1 the times method is called on the integer `2` and is passed a block
+as an argument. In the inner scope of the block the local variable `a` is
+intialized. The method runs twice, outputs nothing and returns the original
+integer `2`
+
+On line 4 the times method is called on the integer `3` and is passed a block
+as an argument. In the inner scope of the block the local variable `a` is
+passed as an argument to the puts method. However, since the variable is not
+intialized in this scope and the block can not access a peer scope,
+an error is thrown.
+
 
 ### example 32
 a = 5
@@ -374,6 +414,9 @@ end
   puts a
 end
 
+- outer scope variables can be accessed by inner scope
+- outerscope can access changes make by inner scope if the variable was
+  intialized in outer scope.
 
 ### example 33
 n = 4
