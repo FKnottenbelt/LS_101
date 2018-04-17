@@ -4,10 +4,6 @@
 # alphabetic characters inside the string are uppercase, false otherwise.
 # Characters that are not alphabetic should be ignored.
 
-# f: loop through letters. check if letter is in uppercase letters collection
-#  if no no's
-#   if yes return true, else false
-
 def uppercase?(string)
   string == string.upcase
 end
