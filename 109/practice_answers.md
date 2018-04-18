@@ -198,6 +198,8 @@ loop do
   break
 end
 
+- outer scope variables can be accessed by inner scope
+
 In `line 1` we intialize the local variable `a` and assign it to an integer
 object with the value `5`
 
@@ -206,7 +208,7 @@ In the block we call the method `puts` and pass it the local variable `a` as
 and argument. `puts` outputs a string representation `a` so wil output '5' and
 return nil. (inner scope in block can access outer scope variable)
 
-in `lline 5` we call the keyword `break`. This will break out of the loop and
+in `line 5` we call the keyword `break`. This will break out of the loop and
 return nil as the block result, so the `loop` method will return `nil`
 
 ### example 23
@@ -216,6 +218,12 @@ loop do
   break
 end
 a
+
+- outer scope variables can be accessed by inner scope
+- you can change variables from an inner scope and have that change affect
+  the outer scope
+- outerscope can access changes make by inner scope if the variable was
+  intialized in outer scope.
 
 In `line 1` we intialize the local variable `a` and assign it to an integer
 object with the value `5`
@@ -288,6 +296,9 @@ end
 my_method(10)
 puts a
 
+- inner scope variables cannot be accessed in outer scope
+- a method definition can't access local variables in another scope
+
 In `line 1` we intialize local variable `a` and assign to an object with the
 value of `5`.
 
@@ -306,10 +317,6 @@ SO the call to the method (line 5) returns this `4`
 In line 6 the local variable `a` is passed as an argument to the `puts` method
 Since the only variable `a` that is available here is the one from line 1,
 puts will output `5` and return nil.
-
-- inner scope variables cannot be accessed in outer scope
-- a method definition can't access local variables in another scope
-
 
 ### example 27
 def my_method(string)
@@ -422,7 +429,32 @@ end
 n = 4
 [1, 2, 3].each { |n| n + 1 }
 
+- variable shadowing: If a block takes a parameter, variable shadowing prevents
+  access to variables of the same name outside the block
+
+on line 1 the local variable `n` is intialized and assigned the value `4`
+
+On line 2 the `Array#each` method is being called on an array.
+Each element of the array is passed to the block in turn and assigned
+to the local variable `n`.
+
+In the block the `+` method is called on the the variable `n` with an
+argument with the value `1` passed to it. The method, and thus the block
+will return n+1 (2,3,4 respectively) and output nothing
+
+`Array#each` doesn't do anything with the return value of the block, it
+returns the original array - in this case `[1, 2, 3]`
+
 ### example 34
 n = 4
-[1, 2, 3].each { |m| m + 1 }
+[1, 2, 3].each { |m| m + 1 ; puts n }
 
+on line 1 the local variable `n` is intialized and assigned the value `4`
+
+On line 2 the `Array#each` method is being called on an array.
+Each element of the array is passed to the block in turn and assigned
+to the local variable `m`.
+
+In the block the `+` method is called on the the variable `m` with an
+argument with the value `1` passed to it. The method, and thus the block
+will return n+1 (2,3,4 respectively) and output nothing

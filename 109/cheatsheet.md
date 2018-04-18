@@ -112,8 +112,12 @@ for each passed in element, `Array#select` will return an empty array.
 - inner scope variables cannot be accessed in outer scope
 - peer scopes do not conflict
 - A block cannot access variables defined in a peer scope
-- nested blocks
-- variable shadowing
+- nested blocks:  blocks can be nested
+  - scope can bleed through blocks from out to in
+    – a variable initialised outside a block IS available inside the block
+    – a variable initialised inside a block IS NOT avaialble outside the block
+- variable shadowing: If a block takes a parameter, variable shadowing prevents
+  access to variables of the same name outside the block
 
 ## variable scope and methods concepts
 - a method definition can't access local variables in another scope
@@ -124,3 +128,9 @@ for each passed in element, `Array#select` will return an empty array.
   the method
 - A do/end pair that does not follow a method invocation does not constitute
   a block, so no nested scope is created
+
+# call by sharing concepts
+- When an operation within the method mutates the caller, it will affect the
+  original object (This is sometimes known as pass-by-reference-of-the-value 
+  or call-by-sharing)
+
