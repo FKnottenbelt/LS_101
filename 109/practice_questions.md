@@ -175,6 +175,7 @@ end
 ```ruby
 def cap(str)
   str.capitalize!
+end
 
 name = "jim"
 cap(name)
@@ -316,3 +317,9 @@ t = fix(s)
 ```
 
 ### example 37 (36 is taken)
+a = [1, 3]
+b = [4]
+arr = [a, b]
+a = b
+p arr
+p a

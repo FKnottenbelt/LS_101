@@ -128,9 +128,13 @@ for each passed in element, `Array#select` will return an empty array.
   the method
 - A do/end pair that does not follow a method invocation does not constitute
   a block, so no nested scope is created
+- The scoping rules for a `method invocation with a block` differ from the rules
+  for method definitions. With method definitions, local variable scope is
+  restricted to the method definition itself. In contrast, a method invocation
+  with a block has more open scoping rules; the block can use and modify local
+  variables that are defined outside the block.
 
 # call by sharing concepts
 - When an operation within the method mutates the caller, it will affect the
-  original object (This is sometimes known as pass-by-reference-of-the-value 
+  original object (This is sometimes known as pass-by-reference-of-the-value
   or call-by-sharing)
-

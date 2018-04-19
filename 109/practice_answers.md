@@ -156,6 +156,12 @@ s = 'hello'
 t = fix(s)
 ```
 
+- When an operation within the method mutates the caller, it will affect the
+  original object (This is sometimes known as pass-by-reference-of-the-value
+  or call-by-sharing)
+- `<<` and `.concat` are mutating
+- `=` reassignment and `.upcase` are not mutating
+
 In line 6 we initialize the local variable `s` and assign it to a string object
 with the value `hello`.
 In line 7 we initialize the local variable `t` and assign it to the result of
@@ -325,6 +331,8 @@ end
 a = "hello"
 my_method(a)
 
+- a method definition can access objects passed in
+
 in line 4 the local variable `a` is intialized and assigned to an object
 with the value  `hello`
 
@@ -340,8 +348,6 @@ on line 2 the variable `string` is passed to the method `puts` as an argument
 
 the methods returns nil, so the call to my_method returns nil
 
-- a method definition can access objects passed in
-
 
 ### example 28
 def my_method
@@ -352,6 +358,8 @@ end
 a = 4
 my_method { a }
 
+- a method definition can access objects passed in
+- 
 On line 5 the local variable `a` is intialized and assigned the value `4`
 This variable is then in a block passed as an argument to the method `my_method`
 (line 6)
@@ -368,13 +376,15 @@ On line 3 the variable `number` is passed to the `puts` method as an argument
 puts will print a string representation of `number` ('4') and will return nil
 The method will thus ouput `4` and return nil
 
-- a method definition can access objects passed in
 
 ### example 29
 for i in (0..5) do
   a = 5
 end
 puts a
+
+- A do/end pair that does not follow a method invocation does not constitute
+  a block, so no nested scope is created
 
 in line 1 a `for` loop iterates from 0 to 5. Inside the for loop the local
 variable `a` is initialized and assigned the value `5`. The for loop has no
@@ -384,10 +394,6 @@ In line 4 the local variable `a` is passed as an argument to the method
 puts. Puts will output a string representation of the value `a` is pointing to,
 which is `5` and will return nil Puts can acces `a` becasue the for loop does
 not make an inner scope.
-
-- A do/end pair that does not follow a method invocation does not constitute
-  a block, so no nested scope is created
-
 
 ### example 31
 2.times do
