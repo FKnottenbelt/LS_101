@@ -138,3 +138,12 @@ for each passed in element, `Array#select` will return an empty array.
 - When an operation within the method mutates the caller, it will affect the
   original object (This is sometimes known as pass-by-reference-of-the-value
   or call-by-sharing)
+
+# Collection concepts
+- The `each method` doesn't do anything with the return value of the block, it
+  returns the original array
+- The `select method` returns a new array based on the block’s return value.
+  If the return value evaluates to true (or: is truthy), then the element
+  is selected.
+- The `map method` returns a new array based on the block’s return value. Each
+  element is transformed based on the return value.

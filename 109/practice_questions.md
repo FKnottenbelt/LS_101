@@ -317,9 +317,34 @@ t = fix(s)
 ```
 
 ### example 37 (36 is taken)
+```ruby
 a = [1, 3]
 b = [4]
 arr = [a, b]
 a = b
 p arr
 p a
+```
+
+### example 38
+```ruby
+def replace_string(string)
+  return string = "another string"
+  string.replace "a third string"
+end
+
+s = "some string"
+```
+
+### example 39
+```ruby
+a = [1, 2, 3]
+
+def mutate(array)
+  array.pop
+end
+
+p "Before mutate method: #{a}"
+p mutate(a)
+p "After mutate method: #{a}"
+```
