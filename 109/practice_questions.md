@@ -348,3 +348,17 @@ p "Before mutate method: #{a}"
 p mutate(a)
 p "After mutate method: #{a}"
 ```
+
+### example 40
+```ruby
+if nil
+  puts "some string"
+end
+```
+### example 41
+```ruby
+a = false
+
+if a
+  puts "some other string"
+```

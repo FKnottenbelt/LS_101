@@ -359,7 +359,7 @@ a = 4
 my_method { a }
 
 - a method definition can access objects passed in
-- 
+-
 On line 5 the local variable `a` is intialized and assigned the value `4`
 This variable is then in a block passed as an argument to the method `my_method`
 (line 6)
@@ -464,3 +464,40 @@ to the local variable `m`.
 In the block the `+` method is called on the the variable `m` with an
 argument with the value `1` passed to it. The method, and thus the block
 will return n+1 (2,3,4 respectively) and output nothing
+
+
+### example 13
+```ruby
+[[1, 2], [3, 4]].map do |arr|
+  arr.map do |num|
+    num * 2
+  end
+end
+```
+
+- The `map method` returns a new array based on the block’s return value. Each
+  element is transformed based on the return value.
+
+In line 1 the method `map` is called on a multi-dimentsional array. Each
+element of the array is passed in turn to the block and assigned to the
+local variable `arr`.
+
+In line 2 the method `map` is called on the local variable `arr` (containing
+a subarray from the original array) and passed to the block in turn and
+assigned to the local variable `num`.
+
+In line 3 the method `*` is called on the variable `num` and passed `2` as
+an argument. The method will output nothing and return the value (num*2)
+
+The `map method` in line 2 returns a new array based on the block’s return value.
+Each element is transformed based on the return value. So the  map on line 2
+will return an new array with all elements of the passed in `num`
+transformed ([1, 2] -> [2,4], [3,4] -> [6,8]). it will output nothing
+
+The `map method` in returns a new array based on the block’s return value.
+Each element is transformed based on the return value. So the  map on line 1
+will return an new array with all elements of the passed in `arr`
+transformed ([[2, 4], [6, 8]] ). it will output nothing
+
+
+

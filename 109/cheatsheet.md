@@ -147,3 +147,9 @@ for each passed in element, `Array#select` will return an empty array.
   is selected.
 - The `map method` returns a new array based on the block’s return value. Each
   element is transformed based on the return value.
+
+# Nil and Truthy concepts
+- `nil` and `false` evaluate to false
+- Every Ruby expression that does not evaluate to either of the objects false
+  or nil is `truthy`.
+
