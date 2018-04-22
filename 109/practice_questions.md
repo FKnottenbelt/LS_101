@@ -362,3 +362,13 @@ a = false
 if a
   puts "some other string"
 ```
+
+### example 42
+```ruby
+a = [1, 3]
+b = [4]
+a = b
+arr = [a, b]
+p arr
+p a
+```
