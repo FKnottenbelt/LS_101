@@ -5,7 +5,7 @@ COLLECTIONS = %w(6 7 8 9 10 11 12 13 14 15 36 16 17)
 LOOPS = %w(2)
 POINTER = %w(37 42)
 PUTS_VS_RETURN = %w(38 39)
-NIL = %w(40 41)
+NILS= %w(40 41)
 
 todo = []
 todo << VAR_SCOPE.sample
@@ -15,7 +15,7 @@ todo <<  COLLECTIONS.sample
 todo <<  LOOPS.sample
 todo <<  PUTS_VS_RETURN.sample
 todo <<  POINTER.sample
-todo <<  NIL.sample
+todo <<  NILS.sample
 
 puts "How many questions do you want right now? (max #{todo.count})"
 answer = gets.chomp

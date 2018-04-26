@@ -499,5 +499,61 @@ Each element is transformed based on the return value. So the  map on line 1
 will return an new array with all elements of the passed in `arr`
 transformed ([[2, 4], [6, 8]] ). it will output nothing
 
+### example 27
+def my_method(string)
+  puts string
+end
+a = "hello"
+my_method(a)
 
+
+in line 6 the local variable `a` is initialized and assigned the value `hello`
+
+In line 7 the method `my_method` is called and passed the variable `a` as an
+argument. This causes the parameter `string` in line 3 to initialize and
+to be assigned to the same object `a` is pointing to.
+
+In line 4 the variable `string` is passed to the method `puts` as an argument
+Puts will output a string representation of `string` ('hello') and will return
+nil. Since this is the last evaluated line in the method, the method will return
+nil.
+
+Thus the method call in lin 7 will return nil. Nothigng is done with this
+return value.
+
+This is an example of a method being able to acces a variable that it got
+passed in. (`- a method definition can access objects passed in`)
+
+### example 21
+```ruby
+def add_name(arr, name)
+  arr = arr + [name]
+end
+
+names = ['bob', 'kim']
+add_name(names, 'jim')
+puts names.inspect
+```
+
+On line 3 the local variable `names` is intialized and assigned to an array
+
+on line 4 the method `add_names` is called and passed in the variable `names` and
+the string `jim` as arguments. This initializes the parameters `arr` and `name` on
+line 9 and assigns them to `names` and `jim` respectively.
+
+on line 0 the `+` method is called on the variable `arr` and passed an array with
+`name` to it as an argument. This will output nothing and return a new array
+('['bob', 'kim', 'jim']') that is assigned to the local variable `arr`. (`arr`
+is reassigned here and will now point to ['bob', 'kim', 'jim'])
+Since this is the last evaluated line of the method `add_names`, the method will
+return `arr` ('['bob', 'kim', 'jim']')
+
+The method call on line 4 will thus return ['bob', 'kim', 'jim']. Nothing is
+done with this return value
+
+On line 5 the `inspect` method is called on the variable `names`, which will 
+return a string representation of the variable `names` to the `puts` method
+as an agrument. `Puts` will output the string representation of `names` and 
+return nil. Since the value `names` points to has not been mutated by the 
+method `add_names` (`+= reassigns`), this wil output ['bob', 'kim']
 
