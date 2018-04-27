@@ -551,9 +551,87 @@ return `arr` ('['bob', 'kim', 'jim']')
 The method call on line 4 will thus return ['bob', 'kim', 'jim']. Nothing is
 done with this return value
 
-On line 5 the `inspect` method is called on the variable `names`, which will 
+On line 5 the `inspect` method is called on the variable `names`, which will
 return a string representation of the variable `names` to the `puts` method
-as an agrument. `Puts` will output the string representation of `names` and 
-return nil. Since the value `names` points to has not been mutated by the 
+as an agrument. `Puts` will output the string representation of `names` and
+return nil. Since the value `names` points to has not been mutated by the
 method `add_names` (`+= reassigns`), this wil output ['bob', 'kim']
 
+### example 41
+```ruby
+a = false
+
+if a
+  puts "some other string"
+end
+```
+
+in line 2 the local variable `a` is initialized and assigned the value `false`
+
+in line 4 the conditional `if` evaluates the variable `a` for truthyness. Since
+`a` points to a boolean with the value `false` the if statement will evaluate
+to false. It will output nothing and return nil (nothing is done with the
+return value)
+
+### example 42
+```ruby
+a = [1, 3]
+b = [4]
+a = b
+arr = [a, b]
+p arr
+p a
+```
+
+- variable as a pointer
+
+in line 8 the local variable `a` is intialized and assigned to an array
+in line 9 the local variable `b` is intialized and assigned to an array
+in line 10 the local variable `a` is reassigned to point to the same object
+as variable `b` ([4])
+
+in line 1 the the local variable `arr` is intialized and assigned to an array
+that has to elements. one points to the same object as `a`, the other points
+to the same object as `b`. ([[4],[4]])
+
+on line 2 the local variable `arr` is passed to the method `p` as an
+argument. `p` will output a string representation of `arr` ([[4],[4]]) and
+return the value of `arr`.  Nothing is done with the return value.
+
+on line 2 the local variable `a` is passed to the method `p` as an
+argument. `p` will output a string representation of `a` ([4]) and
+return the value of `a`.  Nothing is done with the return value.
+
+### example 38
+```ruby
+def replace_string(string)
+  return string = "another string"
+  string.replace "a third string"
+end
+
+s = "some string"
+puts s
+puts replace_string(s)
+puts s
+```
+
+on line 10 the local variable `s` is initialized and assigned the value 
+`some string`.
+
+On line 11 `s` is passed to the method `puts` as an argument.
+`Puts` will output a string respresentation of `s` and return nill.
+
+on line 12 we call the method `replace_string` and pass it the local
+variable `s` as an argument. This will intialize the parameter in the
+method `replace_string` on line 5 and assign it to the value of variable `s`.
+
+on line 6 the local variable `string` is reassigned to the value 'another string'.
+We then use the `return` keyword to exit the method and return the value 
+of `string`. This return value ('another string') is passed as an argument
+to the `puts` method. `puts` will print the value of string object that `string` is
+referencing, which is `'another string'`. The return value of the `puts` will
+be `nil`
+
+n `line 7` we are calling the method `puts` and passing it local variable `s`
+as an argument. `puts` will print the value of string object that `s` is
+referencing, which is `some string`. The return value of the `puts` will be `nil`

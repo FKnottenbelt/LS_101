@@ -24,7 +24,7 @@ The output of de method `loop` will be ......
 The `loop` method returns `nil` because the last evaluated statement in the loop
 is `break` (implicit break which is `break nil`) and thus returns `nil`
 
-### puts a
+### puts / p
 On `line 6` we are calling the method `puts` and passing it local variable `a`
 as an argument. `puts` will print the value of string object that `a` is
 referencing, which is `5`. The return value of the `puts` will be `nil`
@@ -33,6 +33,9 @@ On `line 7` we are calling the method `puts` and passing it local variable `b`
 as an argument. `puts` will try to print the value of string object that `b` is
 referencing, but since `b` was initialized in the inner scope of the `loop`
 method, `puts` can not access `b` and will throw an error.
+
+The local variable `a` is passed to the method `p` as an argument.
+`P` will output a string respresentation of `a` and return the value of `a`.
 
 ### i -= 1
 On `line 5` the local variable `i` is reassigned to the return value of a
@@ -102,6 +105,18 @@ is selected.
 
 Since the return value of the block is `nil` (which evaluates to false)
 for each passed in element, `Array#select` will return an empty array.
+
+# last evaluated
+Since this is the last evaluated statement within the block, the return
+value of the block is therefore `nil`.
+
+Since this is the last evaluated statement within the method, the return
+value of the method is therefore `nil`.
+
+# method call
+on line 12 we call the method `replace_string` and pass it the local
+variable `s` as an argument. This will intialize the parameter in the
+method `replace_string` on line 5 and assign it to the value of variable `s`.
 
 # variable scope concepts
 - outer scope variables can be accessed by inner scope

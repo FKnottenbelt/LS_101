@@ -334,6 +334,9 @@ def replace_string(string)
 end
 
 s = "some string"
+puts s
+puts replace_string(s)
+puts s
 ```
 
 ### example 39
@@ -361,6 +364,7 @@ a = false
 
 if a
   puts "some other string"
+end
 ```
 
 ### example 42
