@@ -75,12 +75,7 @@ def fibonacci(nth)
   fibonacci(nth - 1) + fibonacci(nth - 2)
 end
 
-p fibonacci(3) == 2
-p fibonacci(4) == 3
-p fibonacci(5) == 5
-
 def fibonacci1(num)
-  #return num if num <= 1
   return 1 if num == 1 || num == 2
   arr = [1, 1]
   counter = 2
@@ -92,7 +87,6 @@ def fibonacci1(num)
     arr << result
     counter += 1
   end
-  p arr
   arr.last
 end
 
