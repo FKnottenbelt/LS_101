@@ -48,8 +48,10 @@ value of the object that local variable `i` is referencing is equal to 0.
 
 ### 2.times do |a|
 On `line 3` we call the method `times` on the integer `2` and pass it
-a end..do block as an argument with a parameter `a`.
-(variable shadowing: this `a` has nothing to do with the outer scope `a`).
+a end..do block as an argument with a parameter `a`. The block will be executed
+2 times passing in a value of 0 to 'caller - 1' to the parameter `a`
+(passing in 0 to 1). (variable shadowing: this `a` has nothing to do with
+the outer scope `a`).
 
 (??? this code? the block? the times?)
 This code outputs the output of line 5 (`5`) two times
@@ -57,7 +59,7 @@ This code returns value of the object it was called on, `2` in this case.
 
 ### each
 [1, 2, 3, 4].each { |num| puts num }
-The `Array#each` method is being called on an array.
+The `each` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -66,12 +68,12 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-`Array#each` doesn't do anything with the return value of the block, it
+`each` doesn't do anything with the return value of the block, it
 returns the original array - in this case `[1, 2, 3, 4]`
 
 ### map
 [1, 2, 3, 4].map { |num| puts num }
-The `Array#map` method is being called on an array.
+The `map` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -80,17 +82,17 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-`Array#map` returns a new array based on the block’s return value. Each
+`map` returns a new array based on the block’s return value. Each
 element is transformed based on the return value.
 
-Since the return value of the block is `nil`, `Array#map` will return an
+Since the return value of the block is `nil`, `map` will return an
 array with every orignal element transformed into `nil`
 => `[nil, nil, nil, nil]`
 
 ### select
 [1, 2, 3, 4].select { |num| puts num }
 
-The `Array#select` method is being called on an array.
+The `select` method is being called on an array.
 Each element of the array is passed to the block in turn and assigned
 to the local variable `num`.
 
@@ -99,12 +101,12 @@ The `puts `method then outputs a string representation of `num`.
 statement within the block, the return value of the block is therefore
 `nil`.
 
-`Array#select` returns a new array based on the block’s return value.
+`select` returns a new array based on the block’s return value.
 If the return value evaluates to true (or: is truthy), then the element
 is selected.
 
 Since the return value of the block is `nil` (which evaluates to false)
-for each passed in element, `Array#select` will return an empty array.
+for each passed in element, `select` will return an empty array.
 
 # last evaluated
 Since this is the last evaluated statement within the block, the return
@@ -155,12 +157,12 @@ method `replace_string` on line 5 and assign it to the value of variable `s`.
   or call-by-sharing)
 
 # Collection concepts
-- The `each method` doesn't do anything with the return value of the block, it
+- The `each` method doesn't do anything with the return value of the block, it
   returns the original array
-- The `select method` returns a new array based on the block’s return value.
+- The `select` method returns a new array based on the block’s return value.
   If the return value evaluates to true (or: is truthy), then the element
   is selected.
-- The `map method` returns a new array based on the block’s return value. Each
+- The `map` method returns a new array based on the block’s return value. Each
   element is transformed based on the return value.
 
 # Nil and Truthy concepts
@@ -168,3 +170,6 @@ method `replace_string` on line 5 and assign it to the value of variable `s`.
 - Every Ruby expression that does not evaluate to either of the objects false
   or nil is `truthy`.
 
+# sort_by
+The `sort_by` method will return a new array based on and sorted by the last
+evaluated statement of the block.

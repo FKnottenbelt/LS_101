@@ -615,7 +615,7 @@ puts replace_string(s)
 puts s
 ```
 
-on line 10 the local variable `s` is initialized and assigned the value 
+on line 10 the local variable `s` is initialized and assigned the value
 `some string`.
 
 On line 11 `s` is passed to the method `puts` as an argument.
@@ -626,7 +626,7 @@ variable `s` as an argument. This will intialize the parameter in the
 method `replace_string` on line 5 and assign it to the value of variable `s`.
 
 on line 6 the local variable `string` is reassigned to the value 'another string'.
-We then use the `return` keyword to exit the method and return the value 
+We then use the `return` keyword to exit the method and return the value
 of `string`. This return value ('another string') is passed as an argument
 to the `puts` method. `puts` will print the value of string object that `string` is
 referencing, which is `'another string'`. The return value of the `puts` will
@@ -635,3 +635,80 @@ be `nil`
 n `line 7` we are calling the method `puts` and passing it local variable `s`
 as an argument. `puts` will print the value of string object that `s` is
 referencing, which is `some string`. The return value of the `puts` will be `nil`
+
+
+#### example 5:
+
+```ruby
+a = 4
+b = 2
+
+2.times do |a|
+  a = 5
+  puts a
+end
+
+puts a
+puts b
+```
+
+on line 3 the local varaiable `a` is intialized and assigned the value `4`
+on line 4 the local varaiable `b` is intialized and assigned the value `2`
+
+on line 6 the method `times` is called on the integer 2 and passed a block
+as an argument. The block will be executed 2 times passing in a value of 0
+to caller - 1 to the parameter `a` (passing in 0 to 1). (variable shadowing:
+this `a` has nothing to do with the outer scope `a`)
+
+etc.
+
+### example 34
+n = 4
+[1, 2, 3].each { |m| m + 1 }
+
+on `line 1` of this code we are initializing the local variable `n` and
+assigning a string object with value `4` to it.
+
+on line 7 the method `each` is called on an array [1,2,3].
+Each element of the array is passed to the block in turn and assigned
+to the local variable `m`.
+
+In the block the `+` method is called on the variable `m` and passed
+`1` as an argument. This will return `m` + 1 ([2,3,4]) and output nothing.
+However `Array#each` doesn't do anything with the return value of the block, it
+returns the original array - in this case `[1, 2, 3]`
+
+### example 15
+```ruby
+arr = [['1', '8', '11'], ['2', '6', '13'], ['2', '12', '15'], ['1', '8', '9']]
+arr.sort_by do |sub_arr|
+  sub_arr.map do |num|
+    num.to_i
+  end
+end
+```
+in line 3 the local variable `arr` is initialized and assigned to a
+multidimentional array
+
+on line 4 the `sort_by`  method is called on `arr` and each element of
+`arr` is passed in turn to the block and assigned to the variable `sub_arr`
+
+on line 5 the `map` method is being called on the variable `sub_arr`
+Each element of the array is passed to the block in turn and assigned
+to the local variable `num`.
+
+On line 6 local variable `num` is transformed to an integer by calling the
+method `to_i` on it.
+`map` returns a new array based on the block’s return value. Each
+element is transformed based on the return value.
+Since the return value of the block is `num` transformed to an intger,
+`map` will return an array with every orignal element transformed
+into an integer. => `[1, 8, 11]`
+In this way all the sub arrays of `arr` will be transformed into arrays
+with integers instead of strings.
+
+The `sort_by` method will return a new array based on and sorted by the last
+evaluated line of the block, so the `sort_by` in line 4 will now return an
+new array with the sub arrays sorted by integer value instead of sorted by
+string value.
+
