@@ -712,3 +712,37 @@ evaluated line of the block, so the `sort_by` in line 4 will now return an
 new array with the sub arrays sorted by integer value instead of sorted by
 string value.
 
+### example 35
+```ruby
+def fix(value)
+  value << 'xyz'
+  value = value.upcase
+  value.concat('!')
+end
+s = 'hello'
+t = fix(s)
+```
+[..]
+on line 19 the upcase method is called on the local variable value
+this will output nothing and return an string object with the value
+'HELLOXYZ'. On the same line the local variable `value` is reassigned
+to this new string object with the value 'HELLOXYZ'. Since this is a 
+reassignment, this time only the the local variable is impacted and not 
+the outer scope variable `s`
+[..]
+
+### example 14
+```ruby
+[{ a: 'ant', b: 'elephant' }, { c: 'cat' }].select do |hash|
+  hash.all? do |key, value|
+    value[0] == key.to_s
+  end
+end
+```
+[..]
+`select` returns a new array based on the block’s return value.
+If the return value evaluates to true (or: is truthy), then the element
+is selected. 
+[..]
+
+``
