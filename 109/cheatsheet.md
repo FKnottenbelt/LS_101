@@ -173,3 +173,8 @@ method `replace_string` on line 5 and assign it to the value of variable `s`.
 # sort_by
 The `sort_by` method will return a new array based on and sorted by the last
 evaluated statement of the block.
+
+# #{} string interpolation
+on line 8 the local variable `a` is interpolated into the string "before etc"
+and passed to the `p` method as an argument
+

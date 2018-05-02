@@ -746,3 +746,19 @@ is selected.
 [..]
 
 ``
+
+### example 39
+```ruby
+a = [1, 2, 3]
+
+def mutate(array)
+  array.pop
+end
+
+p "Before mutate method: #{a}"
+p mutate(a)
+p "After mutate method: #{a}"
+```
+? string interpolation
+on line 8 the local variable `a` is interpolated into the string "before etc"
+and passed to the `p` method as an argument
