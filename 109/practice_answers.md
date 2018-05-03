@@ -726,8 +726,8 @@ t = fix(s)
 on line 19 the upcase method is called on the local variable value
 this will output nothing and return an string object with the value
 'HELLOXYZ'. On the same line the local variable `value` is reassigned
-to this new string object with the value 'HELLOXYZ'. Since this is a 
-reassignment, this time only the the local variable is impacted and not 
+to this new string object with the value 'HELLOXYZ'. Since this is a
+reassignment, this time only the the local variable is impacted and not
 the outer scope variable `s`
 [..]
 
@@ -742,7 +742,7 @@ end
 [..]
 `select` returns a new array based on the block’s return value.
 If the return value evaluates to true (or: is truthy), then the element
-is selected. 
+is selected.
 [..]
 
 ``
@@ -762,3 +762,53 @@ p "After mutate method: #{a}"
 ? string interpolation
 on line 8 the local variable `a` is interpolated into the string "before etc"
 and passed to the `p` method as an argument
+
+### example 17
+```ruby
+[[[1, 2], [3, 4]], [5, 6]].map do |arr|
+  arr.map do |el|
+    if el.to_s.size == 1    # it's an integer
+      el + 1
+    else                    # it's an array
+      el.map do |n|
+        n + 1
+      end
+    end
+  end
+end
+```
+on line 68 the `map` method is called on an multidimentional array
+The sub-arrays of the array are passed in turn to to block and assigned
+to the local variable `arr`.
+
+on line 69 the `map` method is called on the local variable `arr`. Each
+element in `arr` is passed in turn to the block and assigned to the local
+variable `el`.
+
+On line 70 the `to_s` method is called on the local variable `el` which will
+transform `el` in to a string. Then the method `size` is called on the string
+producing the lenght of the variable `el`. This is then compared for
+equality with the value `1`
+
+The conditional `if` statement evaluates the result of the comparison for
+truthyness.
+
+If it does evaluate to true, the statement on line 71 will be
+executed. There the method `+` is called on `el` and passed `1` as an
+argument. This will result in the addition of the value of `el` and `1`.
+It wil output nothing and return the result of the addition
+
+If the if statement evaluates to false the statements on line 73 to 75 will
+be excecuted. On line 73 the method `map` is called on the local variable
+`el`. Each element of `el` is passed in turn to the block and assigned to
+the local variable `n`
+On line 74 the method `+` is called on `n` and passed `1` as an
+argument. This will result in the addition of the value of `n` and `1`.
+It wil output nothing and return the result of the addition
+The `map` method on line 73 will return an new array based on the result of the
+block
+
+So will the `map` method on line 69. In this case the block will return
+an transformed sub array (with each element increased by 1).
+The `map` method on line 68 will thus return a new array
+[[[2, 3], [4, 5]], [6, 7]]
