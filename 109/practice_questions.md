@@ -132,18 +132,6 @@ arr.sort_by do |sub_arr|
   end
 end
 ```
-### example 36
-```ruby
-[[8, 13, 27], ['apple', 'banana', 'cantaloupe']].map do |arr|
-  arr.select do |item|
-    if item.to_s.to_i == item  # if integer [if item.class == Integer]
-      item > 13
-    else
-      item.size < 6
-    end
-  end
-end
-```
 
 ### example 16
 ```ruby
@@ -314,6 +302,19 @@ def fix(value)
 end
 s = 'hello'
 t = fix(s)
+```
+
+### example 36
+```ruby
+[[8, 13, 27], ['apple', 'banana', 'cantaloupe']].map do |arr|
+  arr.select do |item|
+    if item.to_s.to_i == item  # if integer [if item.class == Integer]
+      item > 13
+    else
+      item.size < 6
+    end
+  end
+end
 ```
 
 ### example 37 (36 is taken)
