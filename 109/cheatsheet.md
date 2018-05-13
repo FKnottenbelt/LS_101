@@ -142,14 +142,52 @@ some_method(argument)
   the outer scope
 - peer scopes do not conflict
 
+```ruby
+a = 1           # `a` is initialized
+
+loop do
+  b = 2         # `b` is initialized
+
+  loop do
+    c = 3       # `c` is initialized
+    puts a      # => Innerscope can access outerscope
+    a = 11      # `a` is reassigned. Innerscope can access outerscope
+    puts a      # => 11
+    puts b      # => 2 Innerscope can access outerscope
+    puts c      # => 3 Innerscope can access outerscope
+    break
+  end
+
+  puts a        # => 11 Innerscope can access outerscope
+                # Outerscope can access changes made in innerscope to an
+                # outerscope objct
+  puts b        # => 2 Scope can access its own variables
+  puts c        # => NameError. Outerscope can not access variables that
+                # are initialized in innerscope
+  break
+end
+
+puts a          # => 11 Sope can access its own variables
+                # and the changes made to it by innerscopes that had access to
+                # it.
+puts b          # => NameError. Outerscope can not access variables that
+                # are initialized in innerscope
+puts c          # => NameError. Outerscope can not access variables that
+                # are initialized in innerscope
+```
+
 ## variable scope an blocks
 - A block cannot access variables defined in a peer scope
 - nested blocks:  blocks can be nested
   - scope can bleed through blocks from out to in
-    – a variable initialised outside a block IS available inside the block
-    – a variable initialised inside a block IS NOT avaialble outside the block
-- variable shadowing: If a block takes a parameter, variable shadowing prevents
+    – a variable initialized outside a block IS available inside the block
+    – a variable initialized inside a block IS NOT avaialble outside the block
+- `variable shadowing`: If a block takes a parameter, variable shadowing prevents
   access to variables of the same name outside the block
+  ```ruby
+  n = 4
+  [1, 2, 3].each { |n| n + 1 }
+  ```
 - A do/end pair that does not follow a method invocation does not constitute
   a block, so no nested scope is created
 
@@ -167,19 +205,33 @@ some_method(argument)
   with a block has more open scoping rules; the block can use and modify local
   variables that are defined outside the block.
 
-# call by sharing concepts
+# call by sharing concepts / mutating vs non mutating
 - When an operation within the method mutates the caller, it will affect the
   original object (This is sometimes known as pass-by-reference-of-the-value
   or call-by-sharing)
+```ruby
+def fix(value)           # value is initialized point to the same object as `s`
+  value << 'xyz'         # value and thus `s` are mutated => `helloxyz`
+  value = value.upcase   # value is reassigned => `HELLOXYZ`. `s` is not
+                         # affected (s == `helloxyz` a different object)
+  value.concat('!')      # value is mutated to `HELLOXYZ!`, but it does point
+                         # to the same object as `s` so `s` is not affected
+end
+s = 'hello'
+t = fix(s)               # method returns value => `HELLOXYZ!`. t == `HELLOXYZ!`
+```
 
 # Collection concepts
 - The `each` method doesn't do anything with the return value of the block, it
   returns the original array
+  `[1, 2, 3, 4].each { |num| puts num } # => [1, 2, 3, 4]`
 - The `select` method returns a new array based on the block’s return value.
   If the return value evaluates to true (or: is truthy), then the element
   is selected.
+  `[1, 2, 3, 4].select { |num| puts num } # => []`
 - The `map` method returns a new array based on the block’s return value. Each
   element is transformed based on the return value.
+  `[1, 2, 3, 4].map { |num| puts num } # => [nil, nil, nil, nil]`
 
 # Nil and Truthy concepts
 - `nil` and `false` evaluate to false
@@ -195,24 +247,27 @@ on line 8 the local variable `a` is interpolated into the string "before etc"
 and passed to the `p` method as an argument
 
 # variables as pointers.
-Variables points to (references) an object that exists in a particular
-location in memory. This location is reflected in an object’s object id,
-which can be accessed with the Object#object_id method.
+Variables points to objects that represent locations in memory. The variables
+are said to reference those objects. Each object has an unique ID number
+associated with it. You can assess this ID with the Object#object_id method.
 
 If a second variable is initialized to point to an existing variable,
-that new variable will actually point to the same object as the first
-variable points to, not to the first variable itself.
+that new variable will point to the same object the first variable is pointing
+to.
 
-Through reassignment, you can change a variable to point to a new object
-in a new location in memory. This leaves the original object unchanged, but it
-is no longer accessible through the reassigned variable. Any other
-variables that point to the old object may still access it as usual.
+With reassignment, you can change where a variable is pointing to: it will then
+point to a new object, in a new memory location. This leaves the original
+object unchanged, but you can no longer access it through the reassigned
+variable. Any other variables that point to the old object may still access
+it. If there are no variables left that point to the object, it's
+memory space is released and reused and the object ceases to exist.
 
-Through modification/mutation, you can keep a variable pointed to
-the same space in memory, but modify the original object within that space.
+If you perform an mutation on an object, the variable will still point to
+the same object/memory space, but the value of the object itself will be
+changed.
 
-If the variable points to an array, it points to the array object, not to
-the values inside the array, those point themselves to objects.
+If the variable points to an collection, it points to the collection object,
+not to the values inside the collection, those point themselves to objects.
 ```ruby
 a = 2            # a is intialized and assigned object with value `2`
 b = [5, 8]       # b is intialized and assigned and array object that points
