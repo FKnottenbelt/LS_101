@@ -116,18 +116,33 @@ Since this is the last evaluated statement within the method, the return
 value of the method is therefore `nil`.
 
 # method call
-on line 12 we call the method `replace_string` and pass it the local
-variable `s` as an argument. This will intialize the parameter in the
-method `replace_string` on line 5 and assign it to the value of variable `s`.
+on line 12 we call the method `some_method` and pass it the local
+variable `s` as an argument. This wills intialize the parameter in the
+method `some_method` on line 5 and assign it to the value of variable `s`.
+
+method definition:
+```ruby
+def some_method(parameter)
+  # do some stuff
+end
+```
+method invocation / call:
+```ruby
+some_method(argument)
+```
 
 # variable scope concepts
 - outer scope variables can be accessed by inner scope
+- inner scope variables cannot be accessed in outer scope
+  unless:
+  - outerscope can access changes maked by inner scope if the variable was
+  intialized in outer scope.
+
 - you can change variables from an inner scope and have that change affect
   the outer scope
-- outerscope can access changes make by inner scope if the variable was
-  intialized in outer scope.
-- inner scope variables cannot be accessed in outer scope
 - peer scopes do not conflict
+
+## variable scope an blocks
 - A block cannot access variables defined in a peer scope
 - nested blocks:  blocks can be nested
   - scope can bleed through blocks from out to in
@@ -135,14 +150,15 @@ method `replace_string` on line 5 and assign it to the value of variable `s`.
     – a variable initialised inside a block IS NOT avaialble outside the block
 - variable shadowing: If a block takes a parameter, variable shadowing prevents
   access to variables of the same name outside the block
+- A do/end pair that does not follow a method invocation does not constitute
+  a block, so no nested scope is created
 
 ## variable scope and methods concepts
 - a method definition can't access local variables in another scope
 - a method definition can access objects passed in
-- The scope of a method is disjoint from outside scope: local variables
-  defined outside of the method are not accessible from within the method,
-  and local variables defined in the method are not acessible from outside
-  the method
+- local variables defined outside of the method are not accessible from within
+  the method, and local variables defined in the method are not acessible
+  from outside the method
 - A do/end pair that does not follow a method invocation does not constitute
   a block, so no nested scope is created
 - The scoping rules for a `method invocation with a block` differ from the rules
@@ -178,3 +194,61 @@ evaluated statement of the block.
 on line 8 the local variable `a` is interpolated into the string "before etc"
 and passed to the `p` method as an argument
 
+# variables as pointers.
+Variables points to (references) an object that exists in a particular
+location in memory. This location is reflected in an object’s object id,
+which can be accessed with the Object#object_id method.
+
+If a second variable is initialized to point to an existing variable,
+that new variable will actually point to the same object as the first
+variable points to, not to the first variable itself.
+
+Through reassignment, you can change a variable to point to a new object
+in a new location in memory. This leaves the original object unchanged, but it
+is no longer accessible through the reassigned variable. Any other
+variables that point to the old object may still access it as usual.
+
+Through modification/mutation, you can keep a variable pointed to
+the same space in memory, but modify the original object within that space.
+
+If the variable points to an array, it points to the array object, not to
+the values inside the array, those point themselves to objects.
+```ruby
+a = 2            # a is intialized and assigned object with value `2`
+b = [5, 8]       # b is intialized and assigned and array object that points
+                 # to two integer objects:  `[5, 8]`
+arr = [a, b]     # [2, [5, 8]] points to an integer and an array object
+
+arr[0] += 2      # reassigns to a different integer object [4, [5, 8]]
+arr[1][0] -= a   # reassigns a value in the sub array to a different
+                 # integer object and thus mutating the sub array object
+                 # [2, [3, 8]]
+a # => 2
+b # => [3, 8]    # b is pointing to the same array object that was just
+                 # mutated by arr[1][0] -= a
+arr # => [4, [3, 8]]
+a = b            # a is reassigned to the same object b is pointing to
+a # => [3, 8]
+b # => [3, 8]
+```
+
+# implicit return value of method invocations and blocks
+Methods and blocks will return the return value of their last evaluated
+statement.
+```ruby
+def some_method
+  puts 'hello'
+end
+=> nill
+
+def some_method
+  p 'hello'
+end
+=> 'hello'
+
+def some_method
+  return 'goodbye'
+  p 'hello'
+end
+# => 'goodbye'
+```
