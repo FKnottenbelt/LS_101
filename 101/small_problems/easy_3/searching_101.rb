@@ -29,3 +29,14 @@ if input.include?(last)
 else
   puts "Then number #{last} does not appears in #{input}"
 end
+
+
+#####
+
+def input(*num)
+  to_find = num.pop
+  num.include?(to_find)
+end
+
+p input(25,15,20,17,23,17) == true
+p input(25,15,20,17,23,18) == false
