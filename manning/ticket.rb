@@ -14,7 +14,11 @@ class Ticket
   end
 
   def price=(amount)
-    @price = amount
+    if (amount * 100 ).to_i == amount * 100
+      @price = amount
+    else
+      puts "The price seems to be malformed"
+    end
   end
 
   def price
@@ -29,3 +33,7 @@ p t1.date
 p t2.date
 p t1.price
 p t2.price
+t1.price = 13.2345
+p t1.price
+t1.price = 12.00
+p t1.price
