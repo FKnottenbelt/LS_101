@@ -42,3 +42,26 @@ end
 
 p select_primes([1, 2, 3, 4]) == [2, 3]
 p select_primes([4, 6, 8, 10]) == []
+
+
+## part c
+# write a method that will take an array of numbers, and return the number of
+# primes in the array
+
+=begin
+i: array of integers
+o: integer: number of primes in the array
+f: select the primes, count them
+=end
+def count_primes(arr)
+  select_primes(arr).count
+end
+
+p count_primes([1, 2, 3, 4]) == 2
+p count_primes([4, 6, 8, 10]) == 0
+
+#ls solution:
+def count_primes(arr)
+ arr.count { |value| prime?(value) }
+end
+
