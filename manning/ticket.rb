@@ -1,29 +1,13 @@
 class Ticket
+  attr_reader :venue, :date
+  attr_accessor :price
+
   def initialize(venue, date)
     puts "Creating new ticket. ID #{self.object_id}"
     @venue = venue
     @date = date
   end
 
-  def venue
-    @venue
-  end
-
-  def date
-    @date
-  end
-
-  def price=(amount)
-    if (amount * 100 ).to_i == amount * 100
-      @price = amount
-    else
-      puts "The price seems to be malformed"
-    end
-  end
-
-  def price
-    @price == nil ? "not yet known" : format("%.2f", @price)
-  end
 end
 
 t1 = Ticket.new('Town Hall', "01-01-2018")
