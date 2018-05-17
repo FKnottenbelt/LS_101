@@ -1,10 +1,8 @@
 # calc_primes.rb
 
+## part a
 # write a method that will determine whether an integer is a prime.
 # Don't use the prime class.
-
-# p is_prime?(3) == true
-# p is_prime?(4) == false
 
 =begin
 i: integer
@@ -17,6 +15,7 @@ f: make range from 2 to num
 =end
 
 def is_prime?(num)
+  return false if num == 1
   (2...num).each do |n|
     return false if num % n == 0
   end
@@ -25,3 +24,21 @@ end
 
 p is_prime?(3) == true
 p is_prime?(4) == false
+
+## part b
+# Write a method that will take an array of numbers and only return those that
+# are prime
+
+=begin
+i: array of integers
+o: array with primes from input
+f: select from array if element is prime
+r: prime must be a whole number greater than 1
+=end
+
+def select_primes(arr)
+  arr.select { |el| is_prime?(el) }
+end
+
+p select_primes([1, 2, 3, 4]) == [2, 3]
+p select_primes([4, 6, 8, 10]) == []
