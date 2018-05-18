@@ -35,14 +35,22 @@ p interleave([1,2,3],['a','b','c']) == [1,'a',2,'b',3,'c']
 
 
 ## watch-others-code-recording-part-4
-### 1- calculate number of Friday the 13ths in a year
+### 1 - capitalize
 Write a method that takes a single string argument and returns a new string
 that contains the original value of the argument, but the first letter of
 every word is now capitalized.
 
 p word_cap('four score "and" seven') == 'Four Score "and" Seven'
 
-### 2- generate random English mathematical phrases
+### 2- calculate number of Friday the 13ths in a year
+Write a method that returns the number of Friday the 13ths in the year
+passed in as an argument. [...]
+ruby's Date class may be helpfull: the friday? method
+
+p friday_13th(2015) == 3
+p friday_13th(1986) == 1
+
+### 3- generate random English mathematical phrases (at 24:50)
 
 
 ## beginning-ruby-part-4
