@@ -50,7 +50,19 @@ ruby's Date class may be helpfull: the friday? method
 p friday_13th(2015) == 3
 p friday_13th(1986) == 1
 
-### 3- generate random English mathematical phrases (at 24:50)
+#### 3a- generate random English mathematical phrases (at 24:50)
+Write a method that will generate random English math problems. The method
+should take take a lenght and return a math phrase with that many operations
+
+p mathphrase(1) == "five minus two"
+p mathphrase(2) == "two plus three times eight"
+given:
+NUMBERS = %w(zero one two three four five six seven eight nine ten)
+OPERATORS = %w(plus minus times devided)
+
+#### 3b: any length
+Write a progam that will generate random english math problem of varying
+lengths
 
 
 ## beginning-ruby-part-4
