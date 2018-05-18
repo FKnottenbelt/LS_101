@@ -22,6 +22,10 @@ p count_primes([1, 2, 3, 4]) == 2
 p count_primes([4, 6, 8, 10]) == 0
 
 2- finding sum or product of a series of numbers
+write a programm that ask the user to return an integer > 0, than ask if the
+user wants to determine the sum or hte product of all numbers between 1 and the
+entered integer.
+
 
 interleave two arrays
 
