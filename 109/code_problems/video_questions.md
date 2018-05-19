@@ -77,4 +77,46 @@ a number is divisible by 3 and 5, print "FizzBuzz"
 
 p fizzbuzz(1, 15) # -> 1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz
 
+### 3- Laptop query
+Implement the search method
+
+PRODUCTS = [
+  { name: "Thinkpad x210" , price: 220 },
+  { name: "Thinkpad x220" , price: 250 },
+  { name: "Thinkpad x250" , price: 979 },
+  { name: "Thinkpad x230" , price: 300 },
+  { name: "Thinkpad x230" , price: 330 },
+  { name: "Thinkpad x230" , price: 350 },
+  { name: "Thinkpad x240" , price: 700 },
+  { name: "Mackbook x220" , price: 250 },
+  { name: "Dell Latitude" , price: 200 },
+  { name: "Dell Latitude" , price: 650 },
+  { name: "Dell Inspiron" , price: 300 },
+  { name: "Dell Inspiron" , price: 450 }
+]
+
+query = {
+  price_min: 240,
+  price_max: 280,
+  q: 'thinkpad'
+}
+
+query2 = {
+  price_min: 300,
+  price_max: 450,
+  q: 'dell'
+}
+
+def search(query)
+  # your code here
+end
+
+p search(query)
+#=>[ { name: "Thinkpad x220" , price: 250 } ]
+
+p search(query2)
+#=> [ { name: "Dell Inspiron" , price: 300 },
+#=>  { name: "Dell Inspiron" , price: 450 }]
+
+
 ## beginning-ruby-part-5
