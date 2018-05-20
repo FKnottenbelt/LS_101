@@ -120,3 +120,8 @@ p search(query2)
 
 
 ## beginning-ruby-part-5
+### 1 - remove vowels
+Write a method that takes an array of strings and returns an array of
+the same string values, except with the vowels removed
+
+p remove_vowels(['yellow', 'green', 'black']) == ['yllw', 'grn', 'blck']
