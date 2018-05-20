@@ -136,3 +136,10 @@ p balancer("(hi)") == true
 
 bonus
 p balancer(")hi(") == false
+
+### 3 - find primes
+Write a method that takes 2 numbers. It should print out all primes
+between those two numbers. Don't use the ruby prime class
+
+p find_primes(3,10) #=> 3, 5, 7
+p find_primes(5,20)
