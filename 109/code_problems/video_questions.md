@@ -125,3 +125,14 @@ Write a method that takes an array of strings and returns an array of
 the same string values, except with the vowels removed
 
 p remove_vowels(['yellow', 'green', 'black']) == ['yllw', 'grn', 'blck']
+
+### 2 - balanced parentheses
+Write a method that takes a string and returns a boolean indicating whether
+this string has a balanced set of parentheses.
+
+p balancer("hi") == true
+p balancer("(hi") == false
+p balancer("(hi)") == true
+
+bonus
+p balancer(")hi(") == false
