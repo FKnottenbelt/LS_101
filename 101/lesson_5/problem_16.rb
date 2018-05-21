@@ -34,6 +34,42 @@ end
 
 p make_uuid
 
+# option 2
+=begin
+i: nothing
+o: 8-4-4-4-12 random hex
+f: make random section of x size
+    - two ranges 0-9 and a-f, add them together
+    - now do x time sample and ouput as string
+
+   call make(8), add to ouput
+   call make(4) etc
+=end
+
+def make_section(size)
+  range = ((0..9).to_a << ('a'..'f').to_a).flatten
+  counter = 1
+  section = ''
+
+  loop do
+    break if counter > size
+    section << range.sample.to_s
+    counter += 1
+  end
+
+  section
+end
+
+def make_uuid()
+  output =[]
+  [8,4, 4, 4, 12].each do |size|
+    output << make_section(size)
+  end
+  output.join('-')
+end
+
+p make_uuid()
+
 # ls solution
 def generate_UUID
   characters = []
