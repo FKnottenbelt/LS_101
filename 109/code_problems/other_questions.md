@@ -37,7 +37,7 @@ p reverse_arr([1 ,2 , 3, 4, 5, 6]) == [6, 5, 4, 3, 2, 1]
 p reverse_arr([1 ,2 , 3, 4, 5, 6, 7]) == [7, 6, 5, 4, 3, 2, 1]
 p reverse_arr([]) == []
 
-## 5 - longes palindrome
+## 5 - longest palindrome
 Write a method that takes in a string of lowercase letters (no
 uppercase letters, no repeats). Consider the *substrings* of the
 string: consecutive sequences of letters contained inside the string.
@@ -98,3 +98,7 @@ find_missing_letter(["O","Q","R","S"]) == "P"
 find_missing_letter(["b","d"]) == "c"
 find_missing_letter(["a","b","d"]) == "c"
 find_missing_letter(["b","d","e"]) == "c"
+
+## 9 - factorial
+Write a program that outputs the factorial of the numbers 5, 6, 7, and 8.
+#=> 120, 720, 5040, 40320
