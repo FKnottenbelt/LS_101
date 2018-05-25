@@ -78,6 +78,8 @@ arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 
 #=> [["c", "b", "a"], [3, 2, 1], ["green", "blue", "black"]]
 
+p out == [["c", "b", "a"], [3, 2, 1], ["green", "blue", "black"]]
+
 # problem_10.rb
 
 # Given the following data structure and without modifying the original array,
@@ -86,6 +88,8 @@ arr = [['b', 'c', 'a'], [2, 1, 3], ['blue', 'black', 'green']]
 
 arr = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
 # => [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
+
+p out == [{:a=>2}, {:b=>3, :c=>4}, {:d=>5, :e=>6, :f=>7}]
 
 # problem_11.rb
 
@@ -97,6 +101,8 @@ arr = [{a: 1}, {b: 2, c: 3}, {d: 4, e: 5, f: 6}]
 arr = [[2], [3, 5, 7], [9], [11, 13, 15]]
 # => [[], [3], [9], [15]]
 
+p out == [[], [3], [9], [15]]
+
 # problem_12.rb
 
 # Given the following data structure, and without using the Array#to_h method,
@@ -107,6 +113,8 @@ arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
 
 # => {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
 
+p hsh == {:a=>1, "b"=>"two", "sea"=>{:c=>3}, {:a=>1, :b=>2, :c=>3, :d=>4}=>"D"}
+
 # problem_13.rb
 
 # Given the following data structure, return a new array containing the same
@@ -116,8 +124,8 @@ arr = [[:a, 1], ['b', 'two'], ['sea', {c: 3}], [{a: 1, b: 2, c: 3, d: 4}, 'D']]
 arr = [[1, 6, 7], [1, 4, 9], [1, 8, 3]]
 
 # The sorted array should look like this:
-
 # [[1, 8, 3], [1, 6, 7], [1, 4, 9]]
+p out == [[1, 8, 3], [1, 6, 7], [1, 4, 9]]
 
 # problem_14.rb
 
@@ -134,8 +142,9 @@ hsh = {
 }
 
 # The return value should look like this:
-
 # [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
+
+p out == [["Red", "Green"], "MEDIUM", ["Red", "Green"], ["Orange"], "LARGE"]
 
 # problem_15.rb
 
