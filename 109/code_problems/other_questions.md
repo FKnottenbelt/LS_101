@@ -129,3 +129,20 @@ p re_letter('') == nil
 p re_letter('011-555-333-23') == 3
 p re_letter('1') == 1
 p re_letter('444352893599119') == 9
+
+## 12 - Matching brackets with starting point
+You will be given a string with brackets and an index of an opening bracket
+and your task will be to return the index of the matching closing bracket.
+Return -1 if there #is no answer.
+
+puts solve("((1)23(45))(aB)", 0) == 10
+puts solve(")(1)23(45))(aB)", 0) == -1
+puts solve("((1)23(45))(aB)", 1) == 3
+puts solve("((1)23(45))(aB)", 2) == -1
+puts solve("((1)23(45))(aB)", 6) == 9
+puts solve("((1)23(45))(aB)", 11) == 14
+puts solve("(g(At)IO(f)(tM(qk)YF(n)Nr(E)))", 11) == 28
+puts solve("(g(At)IO(f)(tM(qk)YF(n)Nr(E)))", 0) == 29
+puts solve("(>_(va)`?(h)C(as)(x(hD)P|(fg)))", 19) == 22
+puts solve("((1(23(45((aB", 0) == -1
+
