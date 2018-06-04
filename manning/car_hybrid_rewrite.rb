@@ -1,8 +1,8 @@
-# hybrid.rb
+# car_hybrid_rewrite.rb
+
 class Car
   @@make = []
   @@cars = Hash.new{0}
-  @@total_count = 0
 
   attr_accessor :make
 
@@ -14,15 +14,19 @@ class Car
     end
     @make = make
     @@cars[@make] += 1
-    @@total_count += 1
+    self.class.total_count += 1
+  end
+
+  def self.total_count
+    @total_count ||= 0
+  end
+
+  def self.total_count=(n)
+    @total_count = n
   end
 
   def self.add_make(make)
     @@make << make
-  end
-
-  def self.total_count
-    @@total_count
   end
 
   def make_mates
@@ -46,6 +50,6 @@ class Hybrid < Car
 end
 
 hy = Hybrid.new('Honda')
-puts "there are #{Hybrid.total_count} hybrids in existendce"
-# => 4
-# @@total_count is class variable -> same in child as in parent
+puts "there are #{Hybrid.total_count} hybrids in existence"
+# => 1
+# @total_count is now class instance variable
