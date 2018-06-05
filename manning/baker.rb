@@ -44,4 +44,5 @@ p cake
 tony.add_egg
 #private method `add_egg' called for #<Baker:0x000000012432a8>
 #(NoMethodError)
-
+add_egg
+#undefined local variable or method `add_egg' for main (self == main)
