@@ -43,6 +43,12 @@ end
 p select_primes([1, 2, 3, 4]) == [2, 3]
 p select_primes([4, 6, 8, 10]) == []
 
+# alternative:
+require 'prime'
+
+def select_primes(arr)
+  arr.select{ |num| num.prime? }
+end
 
 ## part c
 # write a method that will take an array of numbers, and return the number of
