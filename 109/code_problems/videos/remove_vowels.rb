@@ -37,3 +37,10 @@ end
 
 puts '==option 2=='
 p remove_vowels2(['yellow', 'green', 'black']) #== ['yllw', 'grn', 'blck']
+
+# alternative
+def remove_vowels(arr)
+  arr.map do |word|
+    word.gsub(/[aeiou]/,"")
+  end
+end
