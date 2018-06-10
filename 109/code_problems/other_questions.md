@@ -187,3 +187,52 @@ p winner(["A", "7", "8"], ["K", "5", "9"]) == "Steve wins 2 to 1"
 p winner(["T"], ["T"]) == "Tie"
 p winner(["K", "5"], ["A", "7"]) == "Josh wins 2 to 0"
 
+# 14 - Sum of integers from string
+Your task is to implement a function that calculates the sum of the integers inside a string.-->
+For example, in the string "The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog",-->
+the sum of the integers is 3635.-->
+
+puts sum_of_integers_in_string("12.4") == 16
+puts sum_of_integers_in_string("h3ll0w0rld") == 3
+puts sum_of_integers_in_string("2 + 3 = ") == 5
+puts sum_of_integers_in_string("Our company made approximately 1 million in gross revenue last quarter.") == 1
+puts sum_of_integers_in_string("The Great Depression lasted from 1929 to 1939.") == 3868
+puts sum_of_integers_in_string("Dogs are our best friends.") == 0
+puts sum_of_integers_in_string("C4t5 are 4m4z1ng.") == 18
+puts sum_of_integers_in_string("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
+
+# 14 - Count repeats
+Write a function that returns the count of characters that have to be
+removed in order to
+get a string with no consecutive repeats.
+Examples:
+'abbbbc'  => 'abc'    #  answer: 3
+'abbcca'  => 'abca'   #  answer: 2
+'ab cca'  => 'ab ca'  #  answer: 1
+
+puts count_repeats('abbc') == 1
+puts count_repeats('abbcca') == 2
+puts count_repeats('ab cca') == 1
+puts count_repeats('ccffda&& !!!re') == 5
+
+# 15 - find n smallest
+Your task is to write a function that returns the n smallest elements of an array in original order.
+The number of elements to be returned cannot be higher than the array length, elements can be duplicated,
+in case of duplicates, just return them according to the original order (see third test case).
+(nb 6 kyu, takes a bit longer)
+
+p first_n_smallest([1,2,3,4,5],3) == [1,2,3]
+p first_n_smallest([5,4,3,2,1],3) == [3,2,1]
+p first_n_smallest([1,2,3,4,1],3) == [1,2,1]
+p first_n_smallest([1,2,3,-4,0],3) == [1,-4,0]
+p first_n_smallest([1,2,3,4,5],0) == []
+p first_n_smallest([9, -6, 8, 3, -2, 9, 0, -10, 2, 3, 5, 0, 5, -8, 0, 10, 5, 0, -9, 0, -3, 1], 10) == [-6, -2, 0, -10, 0, -8, 0, 0, -9, -3]
+
+# 16 - find shortest word
+Given a string of words, return the length of the shortest word(s).
+
+puts find_short("bitcoin take over the world maybe who knows perhaps") == 3
+puts find_short("turns out random test cases are easier than writing out basic ones") == 3
+puts find_short("lets talk about javascript the best language") == 3
+puts find_short("i want to travel the world writing code one day") == 1
+puts find_short("Lets all go on holiday somewhere very cold") == 2
