@@ -74,3 +74,13 @@ p reverse_inplace!([]) == []
 puts '----------'
 
 
+# alternative
+
+def reverse_arr(arr)
+  output = []
+  loop do
+    break if arr == []
+    output << arr.pop
+  end
+  output
+end
