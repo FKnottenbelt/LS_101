@@ -45,3 +45,14 @@ end
 
 p palindrome?('hello') == false
 p palindrome?('madam') == true
+
+# alternative
+def reverse(string)
+  half = string.size / 2
+  half.times { |i| string[i], string[-i - 1] = string[-i - 1], string[i] }
+  string
+end
+
+def palindrome?(string)
+  string == reverse(string.dup)
+end
