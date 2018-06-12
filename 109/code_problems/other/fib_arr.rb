@@ -76,3 +76,20 @@ p output == ['a', 'b', 'c', 'd', 'f', 'i', 'n']
 This works because if you call a method such as select without a block, you
 get an Enumerator object, on which you can then chain more Enumerable methods.
 =end
+
+# alternative
+def fibonacci?(n)
+  return false if n == 0
+  return true if n == 1 or n == 2
+  first, last = [1 , 1]
+  loop do
+    break if last > n
+    first, last = [last, first + last]
+    return true if last == n
+  end
+  false
+end
+
+def find_fib_index(arr)
+  arr.select { |item| fibonacci?(arr.index(item)) }
+end
