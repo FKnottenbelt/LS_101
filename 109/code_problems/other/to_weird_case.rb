@@ -59,6 +59,15 @@ end
 
 ###
 # no 2, better at comming to 4ht
+=begin
+f: we need to transform words
+   map sentence to words
+   map words to char with index
+     if 4th char => char.upcase
+    else char
+   join chars back to word
+   join words back to sentence
+=end
 def to_weird_case(string)
   string.split().map do |word|
    word.split('').map.with_index do |char, index|

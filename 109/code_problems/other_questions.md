@@ -45,18 +45,9 @@ Find the longest such string of letters that is a palindrome.
 
 Note that the entire string may itself be a palindrome.
 
-puts(
-  'longest_palindrome("abcbd") == "bcb": ' +
-  (longest_palindrome('abcbd') == 'bcb').to_s
-)
-puts(
-  'longest_palindrome("abba") == "abba": ' +
-  (longest_palindrome('abba') == 'abba').to_s
-)
-puts(
-  'longest_palindrome("abcbdeffe") == "effe": ' +
-  (longest_palindrome('abcbdeffe') == 'effe').to_s
-)
+p longest_palindrome('abcbd') == 'bcb'
+p longest_palindrome('abba') == 'abba'
+p longest_palindrome('abcbdeffe') == 'effe'
 
 ## 6 - overlapping substrings
 Given 2 strings, your job is to find out if there is a substring
