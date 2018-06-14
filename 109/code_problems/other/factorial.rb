@@ -13,3 +13,11 @@ for f in 5..8
  puts factorial f
  f += 1
 end
+
+# alternative
+=begin
+product of range 1 to n
+=end
+def fact(n)
+  (1..n).to_a.reduce(:*)
+end
