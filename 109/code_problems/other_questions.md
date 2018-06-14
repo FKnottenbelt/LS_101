@@ -79,16 +79,18 @@ p to_weird_case('Merry Poppins word is supercalifragilisticexpialidocious') == '
 
 
 ## 8 - missing letters
-Write a method that takes an array of consecutive (increasing) letters as input and that returns the missing letter in the array.
+Write a method that takes an array of consecutive (increasing) letters as
+input and that returns the missing letter in the array.
 
-You will always get an valid array. And it will be always exactly one letter be missing. The length of the array will always be at least 2.
+You will always get an valid array. And it will be always exactly one letter
+be missing. The length of the array will always be at least 2.
 The array will always contain letters in only one case.
 
-find_missing_letter(["a","b","c","d","f"]) == "e"
-find_missing_letter(["O","Q","R","S"]) == "P"
-find_missing_letter(["b","d"]) == "c"
-find_missing_letter(["a","b","d"]) == "c"
-find_missing_letter(["b","d","e"]) == "c"
+p find_missing_letter(["a","b","c","d","f"]) == "e"
+p find_missing_letter(["O","Q","R","S"]) == "P"
+p find_missing_letter(["b","d"]) == "c"
+p find_missing_letter(["a","b","d"]) == "c"
+p find_missing_letter(["b","d","e"]) == "c"
 
 ## 9 - factorial
 Write a program that outputs the factorial of the numbers 5, 6, 7, and 8.
@@ -107,9 +109,9 @@ p scramble('scriptjava','javascript') == true
 p scramble('scriptingjava','javascript') == true
 
 ## 11 - repeated letters
-Given a string, find the number character that is repeated most times and return
-it's numeric value. If multiple characters are repeated the same time, return
-first one.
+Given a string, find the number character that is repeated most times and
+return it's numeric value. If multiple characters are repeated the same time,
+return first one.
 If there are no numeric characters in a string return nil.
 
 p re_letter('There isn\' any number here!') == nil

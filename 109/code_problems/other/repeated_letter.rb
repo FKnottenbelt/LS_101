@@ -56,3 +56,34 @@ def re_letter(string)
     return nil
   end
 end
+
+# alternative
+=begin
+loop through char
+if number write to hash
+get key of max hash value
+return first value as integer
+nil if no numbers
+=end
+def re_letter(string)
+  nums = Hash.new{0}
+  string.chars do |char|
+    if ('0'..'9').include?(char)
+      nums[char] += 1
+    end
+  end
+
+  return nil if nums.empty?
+  nums.key(nums.values.max).to_i
+end
+
+# alternataive with regex
+def re_letter(string)
+  nums = Hash.new{0}
+  string.scan(/\d/).each do |char|
+    nums[char] += 1
+  end
+
+  return nil if nums.empty?
+  nums.key(nums.values.max).to_i
+end
