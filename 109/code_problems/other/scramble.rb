@@ -51,3 +51,24 @@ def scramble(str1,str2)
   end
   true
 end
+
+# alternative
+=begin
+see if all letters of str2 are in str1
+loop through str2
+  for each char
+    see if there is a match in str1
+      if so: sub with @
+      if not: return false
+  at end: return true
+=end
+def scramble(str1, str2)
+  str2.each_char do |char|
+    if str1.include?(char)
+      str1.sub!(char, "@")
+    else
+      return false
+    end
+  end
+  true
+end
