@@ -47,3 +47,26 @@ def first_n_smallest(array, n)
   end
   output
 end
+
+# alternative
+=begin
+i: array of numbers, n
+o: n smalles element in original order as array
+f: dup array, sort, take first n
+   loop through input array
+     if element equals one of the dup array
+       move to output and remove from dup (by index)
+   return output
+=end
+
+def first_n_smallest(arr, n)
+  duparr = arr.dup.sort.take(n)
+  output = []
+  arr.each do |int|
+    if duparr.include?(int)
+      output << int
+      duparr.slice!(duparr.index(int))
+    end
+  end
+  output
+end

@@ -194,7 +194,7 @@ puts sum_of_integers_in_string("Dogs are our best friends.") == 0
 puts sum_of_integers_in_string("C4t5 are 4m4z1ng.") == 18
 puts sum_of_integers_in_string("The30quick20brown10f0x1203jumps914ov3r1349the102l4zy dog") == 3635
 
-# 14 - Count repeats
+# 15 - Count repeats
 Write a function that returns the count of characters that have to be
 removed in order to
 get a string with no consecutive repeats.
@@ -208,11 +208,13 @@ puts count_repeats('abbcca') == 2
 puts count_repeats('ab cca') == 1
 puts count_repeats('ccffda&& !!!re') == 5
 
-# 15 - find n smallest
-Your task is to write a function that returns the n smallest elements of an array in original order.
-The number of elements to be returned cannot be higher than the array length, elements can be duplicated,
-in case of duplicates, just return them according to the original order (see third test case).
-(nb 6 kyu, takes a bit longer)
+# 16 - find n smallest
+Your task is to write a function that returns the n smallest elements of an
+array in original order. The number of elements to be returned cannot be
+higher than the array length, elements can be duplicated, in case of
+duplicates, just return them according to the original order (see third
+test case).
+(nb 6 kyu, might take a bit longer)
 
 p first_n_smallest([1,2,3,4,5],3) == [1,2,3]
 p first_n_smallest([5,4,3,2,1],3) == [3,2,1]
@@ -221,7 +223,7 @@ p first_n_smallest([1,2,3,-4,0],3) == [1,-4,0]
 p first_n_smallest([1,2,3,4,5],0) == []
 p first_n_smallest([9, -6, 8, 3, -2, 9, 0, -10, 2, 3, 5, 0, 5, -8, 0, 10, 5, 0, -9, 0, -3, 1], 10) == [-6, -2, 0, -10, 0, -8, 0, 0, -9, -3]
 
-# 16 - find shortest word
+# 17 - find shortest word
 Given a string of words, return the length of the shortest word(s).
 
 puts find_short("bitcoin take over the world maybe who knows perhaps") == 3
