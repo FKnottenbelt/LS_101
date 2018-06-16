@@ -43,6 +43,18 @@ def sum_of_integers_in_string(string)
   string.split.map(&:to_i).sum
 end
 
+# alternative
+=begin
+i: string
+o: sum of integers
+f: scan an array of integers from string
+   map to integer and sum
+=end
+def sum_of_integers_in_string(string)
+  arr = string.scan(/\d+/)
+  arr.map(&:to_i).sum
+end
+
 # top solution
 def sum_of_integers_in_string(s)
   s.scan(/\d+/).reduce(0) { |sum, i| sum + i.to_i }
