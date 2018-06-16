@@ -79,3 +79,4 @@ def to_weird_case(string)
     end.join
   end.join(' ')
 end
+

@@ -126,7 +126,7 @@ p re_letter('444352893599119') == 9
 ## 12 - Matching brackets with starting point
 You will be given a string with brackets and an index of an opening bracket
 and your task will be to return the index of the matching closing bracket.
-Return -1 if there #is no answer.
+Return -1 if there is no answer.
 
 puts solve("((1)23(45))(aB)", 0) == 10
 puts solve(")(1)23(45))(aB)", 0) == -1
