@@ -113,6 +113,45 @@ def winner(deckSteve, deckJosh)
   end
 end
 
+
+# Alternative
+=begin
+i: 2 card decks in array for
+o: formatted answer string "Tie" or "#{name} wins x to y"
+f: make score 0 0
+   make card array (strings!) where index can be points
+   compare index steve to index steve
+     update score
+   add 1 to index and repeat
+   till end of either array
+   test for winner and format output string
+=end
+
+def winner(steve, josh)
+  score = { Steve: 0, Josh: 0}
+  points = ('2'..'9').to_a + ['T','J', 'Q', 'K', 'A']
+
+  counter = 0
+  loop do
+    break if counter == steve.size
+
+    if points.index(steve[counter]) > points.index(josh[counter])
+      score[:Steve] += 1
+    elsif points.index(josh[counter]) > points.index(steve[counter])
+      score[:Josh] += 1
+    end
+    counter += 1
+  end
+
+  if score[:Steve] == score[:Josh]
+    'Tie'
+  elsif score[:Steve] > score[:Josh]
+    "Steve wins #{score[:Steve]} to #{score[:Josh]}"
+  else
+    "Josh wins #{score[:Josh]} to #{score[:Steve]}"
+  end
+end
+
 # top solution
 def winner(deckSteve, deckJosh)
    steve, josh = 0, 0
