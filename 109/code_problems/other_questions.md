@@ -231,3 +231,25 @@ puts find_short("turns out random test cases are easier than writing out basic o
 puts find_short("lets talk about javascript the best language") == 3
 puts find_short("i want to travel the world writing code one day") == 1
 puts find_short("Lets all go on holiday somewhere very cold") == 2
+
+# 18 - Format words into sentence
+Complete the method so that it formats the words into a single comma
+separatedvalue. The last word should be separated by the word 'and'
+instead of a comma. The method takes in an array of strings and
+returns a single formatted string.
+Empty string values should be ignored. Empty arrays or null/nil
+values being passed into the method should result in an empty
+string being returned.
+
+p format_words(['ninja', 'samurai', 'ronin']) == "ninja, samurai and ronin"
+p format_words(['ninja', '', 'ronin']) == "ninja and ronin"
+p format_words([]) == ""
+
+# edge case extra's
+p format_words(nil) == ""
+p format_words([nil]) == ""
+p format_words(['ninja', 'samurai']) == 'ninja and samurai'
+p format_words(['ninja']) == 'ninja'
+p format_words(['']) == ''
+p format_words(['ninja','']) == 'ninja'
+p format_words(['','ninja']) == 'ninja'
