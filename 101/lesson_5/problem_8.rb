@@ -22,6 +22,9 @@ hsh.each_value do |words_array|
   end
 end
 
+# option 3
+hsh.values.flatten.join.scan(/[aeiou]/).each { |vowel| puts vowel }
+
 # ls solution
 vowels = 'aeiou'
 
