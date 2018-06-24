@@ -245,7 +245,7 @@ p format_words(['ninja', 'samurai', 'ronin']) == "ninja, samurai and ronin"
 p format_words(['ninja', '', 'ronin']) == "ninja and ronin"
 p format_words([]) == ""
 
-# edge case extra's
+#edge case extra's
 p format_words(nil) == ""
 p format_words([nil]) == ""
 p format_words(['ninja', 'samurai']) == 'ninja and samurai'
@@ -253,3 +253,17 @@ p format_words(['ninja']) == 'ninja'
 p format_words(['']) == ''
 p format_words(['ninja','']) == 'ninja'
 p format_words(['','ninja']) == 'ninja'
+
+# 19 split in parts
+Your task is to split a given string into different strings of
+equal size (note that the size of strings is passed to the
+method).
+
+Example: Split the  string below into strings of size 3
+'supercalifragilisticexpialidocious'
+Your method should return a new string
+'sup erc ali fra gil ist ice xpi ali doc iou s'
+
+puts split_in_parts("supercalifragilisticexpialidocious", 3) == "sup erc ali fra gil ist ice xpi ali doc iou s"
+puts split_in_parts("HelloKata", 1) == "H e l l o K a t a"
+puts split_in_parts("HelloKata", 9) == "HelloKata"
