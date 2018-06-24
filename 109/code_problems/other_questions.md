@@ -267,3 +267,17 @@ Your method should return a new string
 puts split_in_parts("supercalifragilisticexpialidocious", 3) == "sup erc ali fra gil ist ice xpi ali doc iou s"
 puts split_in_parts("HelloKata", 1) == "H e l l o K a t a"
 puts split_in_parts("HelloKata", 9) == "HelloKata"
+
+# 20 Values of consonant substrings
+Given a lowercase string that has alphabetic characters only and no spaces, return the highest value of consonant substrings.
+A consonant is any letter of the alphabet except a, e, i ,o, u. The consonant substrings in the word "zodiacs"
+are z, d, cs. Assuming a = 1, b = 2 ... z = 26, the values of these substrings are 26 ,4, 22 because z = 26,
+d = 4,cs=3+19=22. The maximum value of these substrings is 26. Therefore, solve("zodiacs") = 26.
+
+puts solve("zodiacs") == 26
+puts solve("chruschtschov") == 80
+puts solve("khrushchev") == 38
+puts solve("strength") == 57
+puts solve("catchphrase") == 73
+puts solve("twelfthstreet") == 103
+puts solve("mischtschenkoana") == 80
