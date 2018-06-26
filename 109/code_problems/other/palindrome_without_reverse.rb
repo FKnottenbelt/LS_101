@@ -56,3 +56,13 @@ end
 def palindrome?(string)
   string == reverse(string.dup)
 end
+
+# alternative
+def palindrome?(string)
+  str1 = string.dup
+  str2 = ''
+  string.size.times do
+   str2 << str1.slice!(-1,1)
+  end
+  string == str2
+end
