@@ -48,7 +48,9 @@ def solve(str)
   sstr_values.max
 end
 
-=begin
-nb: replace vowels with spaces with regex
-"zodiacs".gsub(/[aeiou]/,' ') => 'z d cs'
-=end
+
+# Nb:
+# replace vowels with spaces with regex
+"zodiacs".gsub(/[aeiou]/,' ') #=> 'z d cs'
+# get all consecutive consonants
+"zodiacs".scan(/[^aeiou]+/) #=>  ["z", "d", "cs"]
