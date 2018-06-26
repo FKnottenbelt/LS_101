@@ -70,6 +70,23 @@ end
 
 p make_uuid()
 
+# alternative
+def section(len)
+  section = ''
+  len.times do
+    section << (('0'..'9').to_a + ('a'..'f').to_a).sample
+  end
+  section
+end
+
+def uid()
+  arr = [8,4,4,4,12]
+  arr.map do |len|
+    section(len)
+  end.join('-')
+end
+
+p uid
 # ls solution
 def generate_UUID
   characters = []
