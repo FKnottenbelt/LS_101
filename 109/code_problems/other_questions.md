@@ -281,3 +281,14 @@ puts solve("strength") == 57
 puts solve("catchphrase") == 73
 puts solve("twelfthstreet") == 103
 puts solve("mischtschenkoana") == 80
+
+# 21 Spin Words
+Write a function that takes in a string of one or more words,
+and returns the same string, but with all five or more letter
+words reversed. Strings passed in will consist of only letters
+and spaces. Spaces will be included onlywhen more than one
+word is present.
+
+p spinWords("Hey fellow warriors") == "Hey wollef sroirraw"
+p spinWords("This is a test") == "This is a test"
+p spinWords("This is another test") == "This is rehtona test"
