@@ -87,3 +87,22 @@ def re_letter(string)
   return nil if nums.empty?
   nums.key(nums.values.max).to_i
 end
+
+# alternative
+=begin
+f: find number chars
+   if empty return nil
+   loop and write to hash
+   get max value from hash and then its key
+   return key as integer
+=end
+
+def re_letter(string)
+  numbers = string.scan(/[0-9]/)
+  return nil if numbers.empty?
+  hash = Hash.new{0}
+  numbers.each do |num|
+    hash[num] += 1
+  end
+  hash.key(hash.values.max).to_i
+end
