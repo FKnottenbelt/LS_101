@@ -96,6 +96,11 @@ p find_missing_letter(["b","d","e"]) == "c"
 Write a program that outputs the factorial of the numbers 5, 6, 7, and 8.
 #=> 120, 720, 5040, 40320
 
+p factorial(5) == 120
+p factorial(6) == 720
+p factorial(7) == 5040
+p factorial(8) == 40320
+
 ## 10 - scramble
 Write function scramble(str1,str2) that returns true if a portion of str1
 characters can be rearranged to match str2, otherwise returns false.
