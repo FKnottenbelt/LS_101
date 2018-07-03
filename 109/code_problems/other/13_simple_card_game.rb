@@ -152,6 +152,27 @@ def winner(steve, josh)
   end
 end
 
+# alternative
+def winner(steve, josh)
+  cards=['2','3','4','5','6','7','8','9','T','J','Q','K','A']
+  score = { steve: 0 , josh: 0 }
+
+  steve.each.with_index do |card, index|
+    steve_card = cards.index(card)
+    josh_card = cards.index(josh[index])
+    score[:steve] += 1 if steve_card > josh_card
+    score[:josh] += 1 if josh_card > steve_card
+  end
+
+  if score[:steve] > score[:josh]
+    "Steve wins #{score[:steve]} to #{score[:josh]}"
+  elsif score[:josh] >  score[:steve]
+    "Josh wins #{score[:josh]} to #{score[:steve]}"
+  else
+    "Tie"
+  end
+end
+
 # top solution
 def winner(deckSteve, deckJosh)
    steve, josh = 0, 0
