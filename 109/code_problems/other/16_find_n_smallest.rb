@@ -70,3 +70,22 @@ def first_n_smallest(arr, n)
   end
   output
 end
+
+# alternative
+=begin
+find n smallest
+  array, sort, take n to new array
+  loop  array
+    if element in new array, write to output
+    and delete from new array
+=end
+def first_n_smallest(array, n)
+  smallest = array.sort.take(n)
+  output = []
+  array.each do |int|
+    if smallest.include?(int)
+      output << smallest.slice!(smallest.index(int))
+    end
+  end
+  output
+end
