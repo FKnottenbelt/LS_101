@@ -52,6 +52,7 @@ def format_words(words)
   words.delete("")  # or words.reject! { |word| word == "" }
   words << words.pop(2).join(" and ")
   words.join(", ")
+end
 
 # top solution
 def format_words(words)
