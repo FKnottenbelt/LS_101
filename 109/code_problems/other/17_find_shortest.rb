@@ -39,3 +39,14 @@ f: make into array of words
 def find_short(sentence)
   sentence.split.sort_by { |word| word.length }.first.size
 end
+
+# alternative
+def find_short(string)
+  save = 100
+  string.split.each do |word|
+    if word.size < save
+      save = word.size
+    end
+  end
+  save
+end
