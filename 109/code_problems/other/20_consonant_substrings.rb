@@ -13,6 +13,22 @@ puts solve("catchphrase") == 73
 puts solve("twelfthstreet") == 103
 puts solve("mischtschenkoana") == 80
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#########
 =begin
 i: string just letters lowercase
 o  int hightest of the values of the non vowels substrings
@@ -39,6 +55,35 @@ def solve(string)
   end
   save
 end
+
+# alternative
+=begin
+array of letter values
+substing of consonants
+  scan consecutive non vowels => array with substrings
+  loop through array
+    for each substring
+      loop through chars and add value to substring value
+    compare to save value
+
+return hightest value (int)
+=end
+
+def solve(string)
+ values = ('a'..'z').to_a
+ save = 0
+ substr_value = 0
+ arr = string.scan(/[^aeiou]+/)
+ arr.each do |substr|
+   substr_value = 0
+   substr.each_char do |char|
+     substr_value += values.index(char) + 1
+   end
+   save = substr_value if substr_value > save
+ end
+ save
+end
+
 
 # student solution
 def solve(str)
