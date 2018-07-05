@@ -42,7 +42,7 @@ def split_in_parts(string, cut)
 end
 
 # top solution
-def split_in_parts (s, part_length)
+def split_in_parts(s, part_length)
   output = []
   s.chars.each_slice(part_length) { |s| output << s.join('') }
   output.join(' ')

@@ -239,7 +239,7 @@ puts find_short("Lets all go on holiday somewhere very cold") == 2
 
 # 18 - Format words into sentence
 Complete the method so that it formats the words into a single comma
-separatedvalue. The last word should be separated by the word 'and'
+separated value. The last word should be separated by the word 'and'
 instead of a comma. The method takes in an array of strings and
 returns a single formatted string.
 Empty string values should be ignored. Empty arrays or null/nil
