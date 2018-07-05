@@ -23,6 +23,12 @@ p spinWords("This is another test") == "This is rehtona test"
 
 
 
+
+
+
+
+
+
 ####################3
 # i: sentence
 # o: string with words of more than 5 letters reversed
